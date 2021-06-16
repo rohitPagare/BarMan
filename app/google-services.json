@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "661186193278",
+    "project_id": "bar-man",
+    "storage_bucket": "bar-man.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661186193278:android:2c4c361c9f31d0bf6c352f",
+        "android_client_info": {
+          "package_name": "com.orhotechnologies.barman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661186193278-qv68h654o3uve06nlhopmabangmo96ds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orhotechnologies.barman",
+            "certificate_hash": "2da846210ff59382ad28f0e8208154801f7a3f12"
+          }
+        },
+        {
+          "client_id": "661186193278-nnk5mkr4ctbnf5ruojqt1j827mdn55pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgQswQUZRuUeVu7uuf3pbpjSKsfDLqVoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661186193278-nnk5mkr4ctbnf5ruojqt1j827mdn55pp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
