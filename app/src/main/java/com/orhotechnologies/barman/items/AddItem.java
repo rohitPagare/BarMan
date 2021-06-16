@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,7 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
     private TextInputEditText iet_itemname;
     private AutoCompleteTextView ac_tv_unit, ac_tv_type, ac_tv_subtype;
     private Items item;
+    private ProgressDialog progressDialog;
 
     private final List<OfferPrices> list = new ArrayList<>();
     private OfferPricesAdapter adapter;
@@ -180,6 +182,8 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
             return;
         }
 
+        showProgressDialog("Adding", "Item " + iet_itemname.getText().toString().trim());
+
         item = new Items();
         item.setItemname(iet_itemname.getText().toString().trim());
         item.setUnit(ac_tv_unit.getText().toString().trim());
@@ -209,6 +213,8 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
                             }
                         } else {
                             Utilities.showSnakeBar(AddItem.this, "Somthing went wrong..!");
+                            btn_add.setClickable(true);
+                            progressDialog.dismiss();
                         }
                     }
                 });
@@ -225,6 +231,8 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
             Utilities.showSnakeBar(this,"Add at one price");
             return;
         }
+
+        showProgressDialog("Updating", "Item " + iet_itemname.getText().toString().trim());
 
         item.setItemname(iet_itemname.getText().toString().trim());
         item.setUnit(ac_tv_unit.getText().toString().trim());
@@ -259,6 +267,8 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
                             }
                         } else {
                             Utilities.showSnakeBar(AddItem.this, "Somthing went wrong..!");
+                            btn_update.setClickable(true);
+                            progressDialog.dismiss();
                         }
                     }
                 });
@@ -269,6 +279,9 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
 
     public void delete(View view) {
         btn_delete.setClickable(false);
+
+        showProgressDialog("Deleting", "Item " + item.getItemname());
+
         Utilities.getUserRef().collection(DB_ITEMS)
                 .document(item.getId())
                 .delete()
@@ -276,6 +289,7 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
                 .addOnFailureListener(this, e -> {
                     btn_delete.setClickable(true);
                     Utilities.showSnakeBar(AddItem.this, e.getMessage());
+                    progressDialog.dismiss();
                 });
     }
 
@@ -314,5 +328,14 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
         intent.putExtra("offer", offer);
         intent.putExtra("position",position);
         startActivityForResult(intent, 102);
+    }
+
+    private void showProgressDialog(String title, String message) {
+        if (progressDialog != null) progressDialog = null;
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 }

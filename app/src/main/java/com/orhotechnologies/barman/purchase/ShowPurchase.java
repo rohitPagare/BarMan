@@ -69,15 +69,6 @@ public class ShowPurchase extends AppCompatActivity implements PurchaseAdapter.M
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null)getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-
-        //fetch all traders
-        Utilities.getUserRef()
-                .collection("traders")
-                .addSnapshotListener(this,new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                    }
-                });
     }
 
     private void setRecyclerView() {

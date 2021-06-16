@@ -24,6 +24,8 @@ import com.orhotechnologies.barman.traders.ShowTraders;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.orhotechnologies.barman.items.Items_Constant.DB_ITEMS;
+
 public class Dashboard extends AppCompatActivity implements OnMenuClickListner {
 
     @Override
@@ -32,7 +34,7 @@ public class Dashboard extends AppCompatActivity implements OnMenuClickListner {
         setContentView(R.layout.activity_dashboard);
 
         setUi();
-
+        startlisteners();
     }
 
     private void setUi(){
@@ -40,6 +42,11 @@ public class Dashboard extends AppCompatActivity implements OnMenuClickListner {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new MenuAdapter(Arrays.asList(Utilities.dashmenus),this));
+    }
+
+    private void startlisteners(){
+        Utilities.getUserRef().collection("traders").addSnapshotListener((value, error) -> { });
+        Utilities.getUserRef().collection(DB_ITEMS).addSnapshotListener((value, error) -> { });
     }
 
     @Override

@@ -29,7 +29,6 @@ public class Utilities {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-
         return currentUser != null ? db.collection(Utilities.DB_USER).document(currentUser.getEmail()) : null;
     }
 
@@ -45,7 +44,7 @@ public class Utilities {
     }
 
     public static String getDoubleFormattedValue(double value) {
-        return value % 1 == 0 ? String.valueOf((int) value) : getRupeeFromDouble(value);
+        return value % 1 == 0 ? String.valueOf((int) value) : String.format(Locale.US,"%.2f",value);
     }
 
     public static String getRupeeFromDouble(double value) {

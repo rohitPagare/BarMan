@@ -3,6 +3,7 @@ package com.orhotechnologies.barman.traders;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class AddTrader extends AppCompatActivity {
     private Toolbar toolbar;
     private TextInputEditText iet_name,iet_address,iet_phone;
     private Button btn_add,btn_update,btn_delete;
+    private ProgressDialog progressDialog;
 
     private Traders trader;
 
@@ -73,10 +75,12 @@ public class AddTrader extends AppCompatActivity {
             return;
         }
 
+        showProgressDialog("Adding", "Trader " + iet_name.getText().toString().trim());
+
         trader = new Traders();
-        trader.setName(iet_name.getText().toString());
-        trader.setAddress(iet_address.getText().toString());
-        trader.setPhone(iet_phone.getText().toString());
+        trader.setName(iet_name.getText().toString().trim());
+        trader.setAddress(iet_address.getText().toString().trim());
+        trader.setPhone(iet_phone.getText().toString().trim());
 
         Utilities.getUserRef().collection(DB_TRADERS)
                 .document()
@@ -85,6 +89,7 @@ public class AddTrader extends AppCompatActivity {
                 .addOnFailureListener(this, e -> {
                     btn_add.setClickable(true);
                     Utilities.showSnakeBar(AddTrader.this, e.getMessage());
+                    progressDialog.dismiss();
                 });
     }
 
@@ -96,18 +101,26 @@ public class AddTrader extends AppCompatActivity {
             return;
         }
 
+        showProgressDialog("Updating", "Trader " + iet_name.getText().toString().trim());
+
         Utilities.getUserRef().collection(DB_TRADERS)
                 .document(trader.getId())
-                .update("name",iet_name.getText().toString(),"address",iet_address.getText().toString(),"phone",iet_phone.getText().toString())
+                .update("name",iet_name.getText().toString().trim(),
+                        "address",iet_address.getText().toString().trim(),
+                        "phone",iet_phone.getText().toString().trim())
                 .addOnSuccessListener(this, aVoid -> AddTrader.this.finish())
                 .addOnFailureListener(this, e -> {
                     btn_update.setClickable(true);
                     Utilities.showSnakeBar(AddTrader.this, e.getMessage());
+                    progressDialog.dismiss();
                 });
     }
 
     public void delete(View view) {
         btn_delete.setClickable(false);
+
+        showProgressDialog("Deleting", "Trader " + trader.getName());
+
         Utilities.getUserRef().collection(DB_TRADERS)
                 .document(trader.getId())
                 .delete()
@@ -115,6 +128,7 @@ public class AddTrader extends AppCompatActivity {
                 .addOnFailureListener(this, e -> {
                     btn_delete.setClickable(true);
                     Utilities.showSnakeBar(AddTrader.this, e.getMessage());
+                    progressDialog.dismiss();
                 });
     }
 
@@ -123,13 +137,13 @@ public class AddTrader extends AppCompatActivity {
         if(Utilities.isInternetNotAvailable(this)){
             Utilities.showSnakeBar(this,"No Internet..!");
             return true;
-        }else if(iet_name.getText().toString().isEmpty()){
+        }else if(iet_name.getText().toString().trim().isEmpty()){
             Utilities.showSnakeBar(this,"Enter Trader Name");
             return true;
-        }else if(iet_address.getText().toString().isEmpty()){
+        }else if(iet_address.getText().toString().trim().isEmpty()){
             Utilities.showSnakeBar(this,"Enter Trader Address");
             return true;
-        }else if(iet_phone.getText().toString().isEmpty()){
+        }else if(iet_phone.getText().toString().trim().isEmpty()){
             Utilities.showSnakeBar(this,"Enter Trader Phone");
             return true;
         }else if (iet_phone.getText().toString().length()!=13 || !iet_phone.getText().toString().startsWith("+91")) {
@@ -137,5 +151,14 @@ public class AddTrader extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private void showProgressDialog(String title, String message) {
+        if (progressDialog != null) progressDialog = null;
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 }

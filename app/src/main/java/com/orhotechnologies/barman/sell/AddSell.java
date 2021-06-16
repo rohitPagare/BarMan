@@ -75,15 +75,6 @@ public class AddSell extends AppCompatActivity implements SellItemsAdapter.Model
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-
-        //fetch all traders
-        Utilities.getUserRef()
-                .collection(DB_ITEMS)
-                .addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                    }
-                });
     }
 
     private void initViews() {
