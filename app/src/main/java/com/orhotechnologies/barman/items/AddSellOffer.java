@@ -90,9 +90,9 @@ public class AddSellOffer extends AppCompatActivity {
         }
 
         OfferPrices offer = new OfferPrices();
-        offer.setOffername(iet_offername.getText().toString());
-        offer.setQuantity(Integer.parseInt(iet_quantity.getText().toString()));
-        offer.setPrice(Double.parseDouble(iet_sellprice.getText().toString()));
+        offer.setOffername(iet_offername.getText().toString().trim());
+        offer.setQuantity(Integer.parseInt(iet_quantity.getText().toString().trim()));
+        offer.setPrice(Double.parseDouble(iet_sellprice.getText().toString().trim()));
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("offer", offer);
@@ -121,9 +121,9 @@ public class AddSellOffer extends AppCompatActivity {
             return;
         }
 
-        offer.setOffername(iet_offername.getText().toString());
-        offer.setQuantity(Integer.parseInt(iet_quantity.getText().toString()));
-        offer.setPrice(Double.parseDouble(iet_sellprice.getText().toString()));
+        offer.setOffername(iet_offername.getText().toString().trim());
+        offer.setQuantity(Integer.parseInt(iet_quantity.getText().toString().trim()));
+        offer.setPrice(Double.parseDouble(iet_sellprice.getText().toString().trim()));
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("offer", offer);
@@ -135,25 +135,25 @@ public class AddSellOffer extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        if(iet_quantity.getText().toString().isEmpty()){
+        if(iet_quantity.getText().toString().trim().isEmpty()){
             iet_quantity.setError("Required");
             return true;
-        }else if(!iet_quantity.getText().toString().matches("\\d+")){
+        }else if(!iet_quantity.getText().toString().trim().matches("\\d+")){
             iet_quantity.setError("Enter valide quantity");
             return true;
-        }else if(Integer.parseInt(iet_quantity.getText().toString())==0){
+        }else if(Integer.parseInt(iet_quantity.getText().toString().trim())==0){
             iet_quantity.setError("Enter valide quantity");
             return true;
-        }else if(iet_sellprice.getText().toString().isEmpty()){
+        }else if(iet_sellprice.getText().toString().trim().isEmpty()){
             iet_sellprice.setError("Required");
             return true;
-        }else if(!Pattern.compile("[0-9]*\\.?[0-9]*").matcher(iet_sellprice.getText().toString()).matches() ){
+        }else if(!iet_sellprice.getText().toString().trim().matches("\\d*\\.?\\d+") ){
             iet_sellprice.setError("Enter valide price");
             return true;
-        }else if(Double.parseDouble(iet_sellprice.getText().toString())==0){
+        }else if(Double.parseDouble(iet_sellprice.getText().toString().trim())==0){
             iet_sellprice.setError("Enter valide price");
             return true;
-        }else if(!iet_offername.getText().toString().isEmpty() && Integer.parseInt(iet_quantity.getText().toString())==1){
+        }else if(!iet_offername.getText().toString().trim().isEmpty() && Integer.parseInt(iet_quantity.getText().toString().trim())==1){
            Utilities.showSnakeBar(this,"For 1 Quantity Remove Offer Name");
            return true;
         }

@@ -37,9 +37,9 @@ public class CreateProfile extends AppCompatActivity {
 
 
     public void onSubmit(View view) {
-        name = edt_name.getText().toString();
-        phone = edt_phone.getText().toString();
-        hotelname = edt_hotelname.getText().toString();
+        name = edt_name.getText().toString().trim();
+        phone = edt_phone.getText().toString().trim();
+        hotelname = edt_hotelname.getText().toString().trim();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 

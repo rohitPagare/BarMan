@@ -162,10 +162,10 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
 
     public void addoffer(View view) {
         if(validateFields())return;
-        String unit = ac_tv_unit.getText().toString();
+        String unit = ac_tv_unit.getText().toString().trim();
         adapter.setUnit(unit.substring(unit.indexOf("(")+1,unit.indexOf(")")));
         Intent intent = new Intent(AddItem.this, AddSellOffer.class);
-        intent.putExtra("unit",ac_tv_unit.getText().toString());
+        intent.putExtra("unit",ac_tv_unit.getText().toString().trim());
         startActivityForResult(intent, 101);
     }
 
@@ -181,10 +181,10 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
         }
 
         item = new Items();
-        item.setItemname(iet_itemname.getText().toString());
-        item.setUnit(ac_tv_unit.getText().toString());
-        item.setType(ac_tv_type.getText().toString());
-        item.setSubtype(ac_tv_subtype.getText().toString());
+        item.setItemname(iet_itemname.getText().toString().trim());
+        item.setUnit(ac_tv_unit.getText().toString().trim());
+        item.setType(ac_tv_type.getText().toString().trim());
+        item.setSubtype(ac_tv_subtype.getText().toString().trim());
         item.setPricesList(list);
 
         Utilities.getUserRef().collection(DB_ITEMS)
@@ -226,10 +226,10 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
             return;
         }
 
-        item.setItemname(iet_itemname.getText().toString());
-        item.setUnit(ac_tv_unit.getText().toString());
-        item.setType(ac_tv_type.getText().toString());
-        item.setSubtype(ac_tv_subtype.getText().toString());
+        item.setItemname(iet_itemname.getText().toString().trim());
+        item.setUnit(ac_tv_unit.getText().toString().trim());
+        item.setType(ac_tv_type.getText().toString().trim());
+        item.setSubtype(ac_tv_subtype.getText().toString().trim());
         item.setPricesList(list);
 
         Utilities.getUserRef().collection(DB_ITEMS)
@@ -283,25 +283,25 @@ public class AddItem extends AppCompatActivity implements OfferPricesAdapter.Mod
         if (Utilities.isInternetNotAvailable(this)) {
             Utilities.showSnakeBar(this, "No Internet..!");
             return true;
-        } else if (iet_itemname.getText().toString().isEmpty()) {
+        } else if (iet_itemname.getText().toString().trim().isEmpty()) {
             iet_itemname.setError("Required");
             return true;
-        } else if (ac_tv_unit.getText().toString().isEmpty()) {
+        } else if (ac_tv_unit.getText().toString().trim().isEmpty()) {
             ac_tv_unit.setError("Select");
             return true;
-        } else if (ac_tv_type.getText().toString().isEmpty()) {
+        } else if (ac_tv_type.getText().toString().trim().isEmpty()) {
             ac_tv_type.setError("Select");
             return true;
-        } else if (ac_tv_subtype.getText().toString().isEmpty()) {
+        } else if (ac_tv_subtype.getText().toString().trim().isEmpty()) {
             ac_tv_subtype.setError("Select");
             return true;
-        } /*else if (iet_sellprice.getText().toString().isEmpty()) {
+        } /*else if (iet_sellprice.getText().toString().trim().isEmpty()) {
             iet_sellprice.setError("Required");
             return true;
-        } else if (!Pattern.compile("[0-9]*\\.?[0-9]*").matcher(iet_sellprice.getText().toString()).matches()) {
+        } else if (!Pattern.compile("[0-9]*\\.?[0-9]*").matcher(iet_sellprice.getText().toString().trim()).matches()) {
             iet_sellprice.setError("Enter valide price");
             return true;
-        } else if (Double.parseDouble(iet_sellprice.getText().toString()) == 0) {
+        } else if (Double.parseDouble(iet_sellprice.getText().toString().trim()) == 0) {
             iet_sellprice.setError("Enter valide price");
             return true;
         }*/

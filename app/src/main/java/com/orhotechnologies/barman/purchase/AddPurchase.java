@@ -196,7 +196,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
             return;
         }
 
-        purchasebill.setBillnumber(iet_billnumber.getText().toString());
+        purchasebill.setBillnumber(iet_billnumber.getText().toString().trim());
         purchasebill.setPurchaseItemsList(list);
 
         showProgressDialog("Adding","Purchase Bill " + purchasebill.getBillnumber());
@@ -281,7 +281,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
     }
 
     private boolean validateFields(){
-        if(iet_billnumber.getText()!=null && iet_billnumber.getText().toString().isEmpty()){
+        if(iet_billnumber.getText()!=null && iet_billnumber.getText().toString().trim().isEmpty()){
             Utilities.showSnakeBar(this,"Enter Bill Number");
             return true;
         }else if(purchasebill.getDate()==0){

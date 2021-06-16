@@ -110,10 +110,10 @@ public class AddPurchaseItem extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().isEmpty())return;
+                if(s.toString().trim().isEmpty())return;
                 if(!iet_quantity.isFocused())return;
-                if(iet_buyprice.getText().toString().isEmpty())return;
-                double total = Double.parseDouble(iet_buyprice.getText().toString()) * Integer.parseInt(s.toString());
+                if(iet_buyprice.getText().toString().trim().isEmpty())return;
+                double total = Double.parseDouble(iet_buyprice.getText().toString().trim()) * Integer.parseInt(s.toString().trim());
                 iet_totalprice.setText(Utilities.getDoubleFormattedValue(total));
             }
         });
@@ -131,10 +131,10 @@ public class AddPurchaseItem extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().isEmpty())return;
+                if(s.toString().trim().isEmpty())return;
                 if(!iet_buyprice.isFocused())return;
-                if(iet_quantity.getText().toString().isEmpty())return;
-                double total = Double.parseDouble(s.toString()) * Integer.parseInt(iet_quantity.getText().toString());
+                if(iet_quantity.getText().toString().trim().isEmpty())return;
+                double total = Double.parseDouble(s.toString().trim()) * Integer.parseInt(iet_quantity.getText().toString().trim());
                 iet_totalprice.setText(Utilities.getDoubleFormattedValue(total));
             }
         });
@@ -152,10 +152,10 @@ public class AddPurchaseItem extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().isEmpty())return;
+                if(s.toString().trim().isEmpty())return;
                 if(!iet_totalprice.isFocused())return;
-                if(iet_quantity.getText().toString().isEmpty())return;
-                double total = Double.parseDouble(s.toString())/ Integer.parseInt(iet_quantity.getText().toString());
+                if(iet_quantity.getText().toString().trim().isEmpty())return;
+                double total = Double.parseDouble(s.toString().trim())/ Integer.parseInt(iet_quantity.getText().toString().trim());
                 iet_buyprice.setText(Utilities.getDoubleFormattedValue(total));
             }
         });
@@ -200,11 +200,11 @@ public class AddPurchaseItem extends AppCompatActivity {
         PurchaseItems purchaseItem = new PurchaseItems();
         purchaseItem.setItemname(item.getItemname());
         purchaseItem.setItemid(item.getId());
-        purchaseItem.setQauntity(Integer.parseInt(iet_quantity.getText().toString()));
+        purchaseItem.setQauntity(Integer.parseInt(iet_quantity.getText().toString().trim()));
         purchaseItem.setUnit(item.getUnit());
-        purchaseItem.setBuyprice(Double.parseDouble(iet_buyprice.getText().toString()));
-        //double total = Double.parseDouble(iet_buyprice.getText().toString()) * Integer.parseInt(iet_quantity.getText().toString());
-        purchaseItem.setTotalprice(Double.parseDouble(iet_totalprice.getText().toString()));
+        purchaseItem.setBuyprice(Double.parseDouble(iet_buyprice.getText().toString().trim()));
+        //double total = Double.parseDouble(iet_buyprice.getText().toString().trim()) * Integer.parseInt(iet_quantity.getText().toString().trim());
+        purchaseItem.setTotalprice(Double.parseDouble(iet_totalprice.getText().toString().trim()));
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("purchaseItem", purchaseItem);
@@ -224,11 +224,11 @@ public class AddPurchaseItem extends AppCompatActivity {
 
         purchaseItem.setItemname(item.getItemname());
         purchaseItem.setItemid(item.getId());
-        purchaseItem.setQauntity(Integer.parseInt(iet_quantity.getText().toString()));
+        purchaseItem.setQauntity(Integer.parseInt(iet_quantity.getText().toString().trim()));
         purchaseItem.setUnit(item.getUnit());
-        purchaseItem.setBuyprice(Double.parseDouble(iet_buyprice.getText().toString()));
-        //double total = Double.parseDouble(iet_buyprice.getText().toString()) * Integer.parseInt(iet_quantity.getText().toString());
-        purchaseItem.setTotalprice(Double.parseDouble(iet_totalprice.getText().toString()));
+        purchaseItem.setBuyprice(Double.parseDouble(iet_buyprice.getText().toString().trim()));
+        //double total = Double.parseDouble(iet_buyprice.getText().toString().trim()) * Integer.parseInt(iet_quantity.getText().toString().trim());
+        purchaseItem.setTotalprice(Double.parseDouble(iet_totalprice.getText().toString().trim()));
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra("purchaseItem", purchaseItem);
@@ -253,40 +253,37 @@ public class AddPurchaseItem extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        if(ac_tv_items.getText().toString().isEmpty()){
+        if(ac_tv_items.getText().toString().trim().isEmpty()){
             ac_tv_items.setError("Required");
             return true;
         }else if(item==null){
             ac_tv_items.setError("Select Item From List");
             return true;
-        }else if(iet_quantity.getText().toString().isEmpty()){
+        }else if(iet_quantity.getText().toString().trim().isEmpty()){
             iet_quantity.setError("Required");
             return true;
-        }else if(!iet_quantity.getText().toString().matches("\\d+")){
+        }else if(!iet_quantity.getText().toString().trim().matches("\\d+")){
             iet_quantity.setError("Enter valide quantity");
             return true;
-        }else if(Integer.parseInt(iet_quantity.getText().toString())==0){
+        }else if(Integer.parseInt(iet_quantity.getText().toString().trim())==0){
             iet_quantity.setError("Enter valide quantity");
             return true;
-        }else if(iet_buyprice.getText().toString().isEmpty()){
+        }else if(iet_buyprice.getText().toString().trim().isEmpty()){
             iet_buyprice.setError("Required");
             return true;
-        }else if(!Pattern.compile("[0-9]*\\.?[0-9]*").matcher(iet_buyprice.getText().toString()).matches() ){
+        }else if(!iet_buyprice.getText().toString().trim().matches("\\d*\\.?\\d+") ){
             iet_buyprice.setError("Enter valide price");
             return true;
-        }else if(Double.parseDouble(iet_buyprice.getText().toString())==0){
+        }else if(Double.parseDouble(iet_buyprice.getText().toString().trim())==0){
             iet_buyprice.setError("Enter valide price");
             return true;
-        }else if(Integer.parseInt(iet_quantity.getText().toString())==0){
-            iet_quantity.setError("Enter valide quantity");
-            return true;
-        }else if(iet_totalprice.getText().toString().isEmpty()){
+        }else if(iet_totalprice.getText().toString().trim().isEmpty()){
             iet_totalprice.setError("Required");
             return true;
-        }else if(!Pattern.compile("[0-9]*\\.?[0-9]*").matcher(iet_totalprice.getText().toString()).matches() ){
+        }else if(!iet_totalprice.getText().toString().trim().matches("\\d*\\.?\\d+") ){
             iet_totalprice.setError("Enter valide price");
             return true;
-        }else if(Double.parseDouble(iet_totalprice.getText().toString())==0){
+        }else if(Double.parseDouble(iet_totalprice.getText().toString().trim())==0){
             iet_totalprice.setError("Enter valide price");
             return true;
         }

@@ -116,7 +116,7 @@ public class AddSellItem extends AppCompatActivity {
                             list.sort(Comparator.comparing(Items::toString));
                             if(sellItem!=null) {
                                 item = list.stream().filter(i-> i.getOffer().getOffername().equals(sellItem.getOffer().getOffername())).findFirst().orElse(null);
-                                if(item!=null)ac_tv_items.setText(item.toString(),false);
+                                if(item!=null)ac_tv_items.setText(item.toString().trim(),false);
                             }
                         } else Log.d("TAG", "onComplete: not fetching all items");
                     }
@@ -133,20 +133,20 @@ public class AddSellItem extends AppCompatActivity {
     }
 
     public void minusQuantity(View view) {
-        if(iet_quantity.getText().toString().isEmpty()){
+        if(iet_quantity.getText().toString().trim().isEmpty()){
             iet_quantity.setText(String.valueOf(1));
-        }else if(iet_quantity.getText().toString().matches("\\d+")){
-            int oldQuant= Integer.parseInt(iet_quantity.getText().toString());
+        }else if(iet_quantity.getText().toString().trim().matches("\\d+")){
+            int oldQuant= Integer.parseInt(iet_quantity.getText().toString().trim());
             int newQuant = oldQuant<=1?1:oldQuant-1;
             iet_quantity.setText(String.valueOf(newQuant));
         }
     }
 
     public void plusQuantity(View view) {
-        if(iet_quantity.getText().toString().isEmpty()){
+        if(iet_quantity.getText().toString().trim().isEmpty()){
             iet_quantity.setText(String.valueOf(1));
-        }else if(iet_quantity.getText().toString().matches("\\d+")){
-            int oldQuant= Integer.parseInt(iet_quantity.getText().toString());
+        }else if(iet_quantity.getText().toString().trim().matches("\\d+")){
+            int oldQuant= Integer.parseInt(iet_quantity.getText().toString().trim());
             int newQuant = oldQuant<1?1:oldQuant+1;
             iet_quantity.setText(String.valueOf(newQuant));
         }
@@ -163,10 +163,10 @@ public class AddSellItem extends AppCompatActivity {
         SellItems sellItem = new SellItems();
         sellItem.setItemname(item.getItemname());
         sellItem.setItemid(item.getId());
-        sellItem.setQauntity(Integer.parseInt(iet_quantity.getText().toString()));
+        sellItem.setQauntity(Integer.parseInt(iet_quantity.getText().toString().trim()));
         sellItem.setUnit(item.getUnit());
-        sellItem.setSellprice(Double.parseDouble(iet_sellprice.getText().toString()));
-        double total = Double.parseDouble(iet_sellprice.getText().toString()) * Integer.parseInt(iet_quantity.getText().toString());
+        sellItem.setSellprice(Double.parseDouble(iet_sellprice.getText().toString().trim()));
+        double total = Double.parseDouble(iet_sellprice.getText().toString().trim()) * Integer.parseInt(iet_quantity.getText().toString().trim());
         sellItem.setTotalprice(total);
         sellItem.setOffer(item.getOffer());
 
@@ -197,10 +197,10 @@ public class AddSellItem extends AppCompatActivity {
 
         sellItem.setItemname(item.getItemname());
         sellItem.setItemid(item.getId());
-        sellItem.setQauntity(Integer.parseInt(iet_quantity.getText().toString()));
+        sellItem.setQauntity(Integer.parseInt(iet_quantity.getText().toString().trim()));
         sellItem.setUnit(item.getUnit());
-        sellItem.setSellprice(Double.parseDouble(iet_sellprice.getText().toString()));
-        double total = Double.parseDouble(iet_sellprice.getText().toString()) * Integer.parseInt(iet_quantity.getText().toString());
+        sellItem.setSellprice(Double.parseDouble(iet_sellprice.getText().toString().trim()));
+        double total = Double.parseDouble(iet_sellprice.getText().toString().trim()) * Integer.parseInt(iet_quantity.getText().toString().trim());
         sellItem.setTotalprice(total);
         sellItem.setOffer(item.getOffer());
 
@@ -215,31 +215,31 @@ public class AddSellItem extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        if(ac_tv_items.getText().toString().isEmpty()){
+        if(ac_tv_items.getText().toString().trim().isEmpty()){
             ac_tv_items.setError("Required");
             return true;
         }else if(item==null){
             ac_tv_items.setError("Select Item From List");
             return true;
-        }else if(iet_quantity.getText().toString().isEmpty()){
+        }else if(iet_quantity.getText().toString().trim().isEmpty()){
             iet_quantity.setError("Required");
             return true;
-        }else if(!iet_quantity.getText().toString().matches("\\d+")){
+        }else if(!iet_quantity.getText().toString().trim().matches("\\d+")){
             iet_quantity.setError("Enter valide quantity");
             return true;
-        }else if(Integer.parseInt(iet_quantity.getText().toString())==0){
+        }else if(Integer.parseInt(iet_quantity.getText().toString().trim())==0){
             iet_quantity.setError("Enter valide quantity");
             return true;
-        }else if(iet_sellprice.getText().toString().isEmpty()){
+        }else if(iet_sellprice.getText().toString().trim().isEmpty()){
             iet_sellprice.setError("Required");
             return true;
-        }else if(!Pattern.compile("[0-9]*\\.?[0-9]*").matcher(iet_sellprice.getText().toString()).matches() ){
+        }else if(!iet_sellprice.getText().toString().trim().matches("\\d*\\.?\\d+") ){
             iet_sellprice.setError("Enter valide price");
             return true;
-        }else if(Double.parseDouble(iet_sellprice.getText().toString())==0){
+        }else if(Double.parseDouble(iet_sellprice.getText().toString().trim())==0){
             iet_sellprice.setError("Enter valide price");
             return true;
-        }else if(item.getStock()< Integer.parseInt(iet_quantity.getText().toString())*item.getOffer().getQuantity()){
+        }else if(item.getStock()< Integer.parseInt(iet_quantity.getText().toString().trim())*item.getOffer().getQuantity()){
             Utilities.showSnakeBar(this,"Stock available is less than quantity.");
             return true;
         }
