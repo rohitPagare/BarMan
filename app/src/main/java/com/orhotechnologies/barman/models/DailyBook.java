@@ -17,7 +17,7 @@ public class DailyBook implements Serializable {
     double totallending;
     double totalpayreceive;
 
-    Map<String, Map<String,Object>> itemsale;
+    Map<String, Map<String,Object>> itemsell;
 
     public DailyBook(){}
 
@@ -79,11 +79,11 @@ public class DailyBook implements Serializable {
         this.totalpayreceive = totalpayreceive;
     }
 
-    public Map<String, Map<String, Object>> getItemsale() {
-        return itemsale;
+    public Map<String, Map<String, Object>> getItemsell() {
+        return itemsell;
     }
 
-    public void setItemsale(Map<String, Map<String, Object>> itemsale) {
-        this.itemsale = itemsale;
+    public void setItemsell(Map<String, Map<String, Object>> itemsell) {
+        this.itemsell = itemsell;
     }
 }

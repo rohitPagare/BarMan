@@ -34,8 +34,9 @@ public class DailySellItemAdapter extends RecyclerView.Adapter<DailySellItemAdap
     public void onBindViewHolder(@NonNull DailySellItemViewHolder holder, int position) {
         DailySellItems dailySellItems = list.get(position);
         holder.tv_itemname.setText(dailySellItems.getItemname());
-        holder.tv_qauntity.setText("Quantity: "+dailySellItems.getSalequantity());
-        holder.tv_totalsell.setText("Total Sell: "+ Utilities.getDoubleFormattedValue(dailySellItems.getTotalsaleprice()));
+        String unit = dailySellItems.getUnit().substring(dailySellItems.getUnit().indexOf("(")+1,dailySellItems.getUnit().indexOf(")"));
+        holder.tv_qauntity.setText("Quantity: "+dailySellItems.getSalequantity()+" "+Utilities.getFirstCharacterCapital(unit));
+        holder.tv_totalsell.setText("Total : "+ Utilities.getDoubleFormattedValue(dailySellItems.getTotalsaleprice())+" Rs.");
     }
 
     @Override

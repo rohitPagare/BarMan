@@ -103,7 +103,7 @@ public class AddSell extends AppCompatActivity implements SellItemsAdapter.Model
             tv_billnumber.setText("Bill No: " + sellBill.getBillnumber());
             tv_billnumber.setVisibility(View.VISIBLE);
             tv_date.setText(new DateTime(sellBill.getDate()).toString("dd/MM/yyyy"));
-            tv_totalsellprice.setText(Utilities.getDoubleFormattedValue(sellBill.getBilltotal()));
+            tv_totalsellprice.setText(Utilities.getDoubleFormattedValue(sellBill.getBilltotal()).concat(" Rs."));
             list.addAll(sellBill.getSellItemsList());
             btn_additem.setVisibility(View.GONE);
             btn_add.setVisibility(View.GONE);
@@ -151,7 +151,7 @@ public class AddSell extends AppCompatActivity implements SellItemsAdapter.Model
             list.add(getSellItem);
             adapter.notifyDataSetChanged();
             sellBill.setBilltotal(list.stream().mapToDouble(SellItems::getTotalprice).sum());
-            tv_totalsellprice.setText(Utilities.getDoubleFormattedValue(sellBill.getBilltotal()));
+            tv_totalsellprice.setText(Utilities.getDoubleFormattedValue(sellBill.getBilltotal()).concat(" Rs."));
 
         } else if (requestCode == 102 && resultCode == RESULT_OK && data != null) {
             SellItems getSellItem = (SellItems) data.getSerializableExtra("sellItem");
@@ -169,7 +169,7 @@ public class AddSell extends AppCompatActivity implements SellItemsAdapter.Model
 
             adapter.notifyDataSetChanged();
             sellBill.setBilltotal(list.stream().mapToDouble(SellItems::getTotalprice).sum());
-            tv_totalsellprice.setText(Utilities.getDoubleFormattedValue(sellBill.getBilltotal()));
+            tv_totalsellprice.setText(Utilities.getDoubleFormattedValue(sellBill.getBilltotal()).concat(" Rs."));
 
         }
     }
@@ -234,13 +234,15 @@ public class AddSell extends AppCompatActivity implements SellItemsAdapter.Model
                             "totalsellprice",
                             FieldValue.increment(item.getTotalprice()));
 
-                    transaction.update(docDailybook, "totalsale",
+                    transaction.update(docDailybook, "totalsell",
                             FieldValue.increment(item.getTotalprice()),
 
-                            "itemsale." + item.getItemname() + ".totalsell",
+                            "itemsell." + item.getItemname() + ".totalsell",
                             FieldValue.increment(item.getQauntity() * item.getOffer().getQuantity()),
 
-                            "itemsale." + item.getItemname() + ".totalsellprice",
+                            "itemsell." + item.getItemname() + ".unit",item.getUnit(),
+
+                            "itemsell." + item.getItemname() + ".totalsellprice",
                             FieldValue.increment(item.getTotalprice()));
 
                 }
@@ -289,13 +291,13 @@ public class AddSell extends AppCompatActivity implements SellItemsAdapter.Model
                     "totalsellprice",
                     FieldValue.increment(-item.getTotalprice()));
 
-            batch.update(docDailybook, "totalsale",
+            batch.update(docDailybook, "totalsell",
                     FieldValue.increment(-item.getTotalprice()),
 
-                    "itemsale." + item.getItemname() + ".totalsell",
+                    "itemsell." + item.getItemname() + ".totalsell",
                     FieldValue.increment(-item.getQauntity() * item.getOffer().getQuantity()),
 
-                    "itemsale." + item.getItemname() + ".totalsellprice",
+                    "itemsell." + item.getItemname() + ".totalsellprice",
                     FieldValue.increment(-item.getTotalprice()));
         }
 

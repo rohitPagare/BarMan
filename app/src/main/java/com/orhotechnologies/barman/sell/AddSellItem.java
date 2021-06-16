@@ -80,7 +80,6 @@ public class AddSellItem extends AppCompatActivity {
         btn_delete = findViewById(R.id.btn_delete);
 
         if (sellItem != null) {
-            ac_tv_items.setText(sellItem.getItemname(),false);
             iet_quantity.setText(String.valueOf(sellItem.getQauntity()));
             iet_unit.setText(sellItem.getUnit().substring(sellItem.getUnit().indexOf("(") + 1, sellItem.getUnit().indexOf(")")));
             iet_sellprice.setText(String.valueOf(sellItem.getSellprice()));
@@ -117,7 +116,7 @@ public class AddSellItem extends AppCompatActivity {
                             list.sort(Comparator.comparing(Items::toString));
                             if(sellItem!=null) {
                                 item = list.stream().filter(i-> i.getOffer().getOffername().equals(sellItem.getOffer().getOffername())).findFirst().orElse(null);
-                                Log.d("TAG", "onComplete: "+item.getItemname());
+                                if(item!=null)ac_tv_items.setText(item.toString(),false);
                             }
                         } else Log.d("TAG", "onComplete: not fetching all items");
                     }

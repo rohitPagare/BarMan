@@ -95,7 +95,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
             iet_billnumber.setText(purchasebill.getBillnumber());
             ac_tv_trader.setText(purchasebill.getTradername(),false);
             list.addAll(purchasebill.getPurchaseItemsList());
-            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()));
+            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
             btn_additem.setVisibility(View.GONE);
             btn_add.setVisibility(View.GONE);
             btn_delete.setVisibility(View.VISIBLE);
@@ -159,7 +159,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
             list.add(getpurchaseItem);
             adapter.notifyDataSetChanged();
             purchasebill.setBilltotal(list.stream().mapToDouble(PurchaseItems::getTotalprice).sum());
-            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()));
+            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
         }else if(requestCode == 102 && resultCode == RESULT_OK && data!=null){
             PurchaseItems getpurchaseItem = (PurchaseItems) data.getSerializableExtra("purchaseItem");
             int position = data.getIntExtra("position",-1);
@@ -176,7 +176,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
 
             adapter.notifyDataSetChanged();
             purchasebill.setBilltotal(list.stream().mapToDouble(PurchaseItems::getTotalprice).sum());
-            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()));
+            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
         }
     }
 

@@ -7,6 +7,7 @@ public class DailySellItems implements Serializable {
     String itemname;
     double totalsaleprice;
     long salequantity;
+    String unit;
 
     public DailySellItems(){}
 
@@ -32,5 +33,13 @@ public class DailySellItems implements Serializable {
 
     public void setSalequantity(long salequantity) {
         this.salequantity = salequantity;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

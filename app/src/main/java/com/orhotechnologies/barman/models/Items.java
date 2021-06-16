@@ -123,10 +123,12 @@ public class Items implements Serializable {
         this.pricesList = pricesList;
     }
 
+    @Exclude
     public OfferPrices getOffer() {
         return offer;
     }
 
+    @Exclude
     public void setOffer(OfferPrices offer) {
         this.offer = offer;
     }

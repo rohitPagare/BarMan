@@ -11,8 +11,6 @@ import com.orhotechnologies.barman.R;
 import com.orhotechnologies.barman.Utilities;
 import com.orhotechnologies.barman.models.DailyBook;
 import com.orhotechnologies.barman.models.DailySellItems;
-import com.orhotechnologies.barman.models.SellBills;
-import com.orhotechnologies.barman.sell.SellItemsAdapter;
 
 import org.joda.time.DateTime;
 
@@ -74,15 +72,16 @@ public class ViewDailybook extends AppCompatActivity {
     }
 
     private void getDailySellItems(){
-        if(dailyBook.getItemsale()!=null){
+        if(dailyBook.getItemsell()!=null){
             list.clear();
-            list.addAll(dailyBook.getItemsale().entrySet().stream()
+            list.addAll(dailyBook.getItemsell().entrySet().stream()
                     .filter(m->m.getValue()!=null && (double)m.getValue().getOrDefault("totalsellprice",0)!=0)
                     .map(m->{
                         DailySellItems dsitem = new DailySellItems();
                         dsitem.setItemname(m.getKey());
                         dsitem.setTotalsaleprice((double) m.getValue().getOrDefault("totalsellprice",0));
                         dsitem.setSalequantity((long) m.getValue().getOrDefault("totalsell",0));
+                        dsitem.setUnit((String) m.getValue().getOrDefault("unit",null));
                         return dsitem;
                     })
                     .sorted(Comparator.comparing(DailySellItems::getItemname))

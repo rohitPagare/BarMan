@@ -7,9 +7,6 @@ import java.util.Date;
 
 public class User implements Serializable {
 
-    private String uid;
-    private String name;
-    private String phone;
     private String email;
     private String hotelname;
 
@@ -19,38 +16,10 @@ public class User implements Serializable {
 
     public User(){}
 
-    public User(String uid,String name,String phone,String email,
-                String hotelname,boolean lockmode){
-        this.uid = uid;
-        this.name = name;
-        this.phone = phone;
+    public User(String email, String hotelname,boolean lockmode){
         this.email = email;
         this.hotelname = hotelname;
         this.lockmode = lockmode;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {
