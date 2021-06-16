@@ -106,7 +106,7 @@ public class AddSellItem extends AppCompatActivity {
                                 for(OfferPrices offer : querySnapshot.toObject(Items.class).getPricesList()){
                                     Items newItem = querySnapshot.toObject(Items.class);
                                     //if stock is less than offer quantity then go to next
-                                    if(newItem.getStock()< offer.getQuantity())continue;
+                                    if(newItem.getStock()< offer.getQuantity() && !newItem.getType().equals("Food"))continue;
 
                                     newItem.setId(querySnapshot.getId());
                                     newItem.setOffer(offer);
