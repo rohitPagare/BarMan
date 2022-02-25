@@ -4,7 +4,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
-import com.orhotechnologies.barman.Utilities;
+import com.orhotechnologies.barman.Utility;
 
 import static com.google.firebase.firestore.Query.Direction.DESCENDING;
 import static com.orhotechnologies.barman.purchase.Purchase_Constant.DB_PURCHASEBILLS;
@@ -14,7 +14,7 @@ import static com.orhotechnologies.barman.purchase.Purchase_Constant.PURCHASEBIL
 public class FirestorePurchaseListRepositoryCallback implements PurchaseListViewModel.PurchaseListRepository,
             PurchaseListLiveData.OnLastVisiblePurchasebillCallback,PurchaseListLiveData.OnLastPurchasebillReachedCallback{
 
-    private final DocumentReference userRef = Utilities.getUserRef();
+    private final DocumentReference userRef = Utility.getUserRef();
     private final CollectionReference itemsRef = userRef.collection(DB_PURCHASEBILLS);
     private Query query = itemsRef.orderBy(PURCHASEBILL_DATE_PROPERTY, DESCENDING).limit(LIMIT);
     private DocumentSnapshot lastVisiblePurchasebill;

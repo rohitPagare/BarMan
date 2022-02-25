@@ -1,56 +1,56 @@
 package com.orhotechnologies.barman.models;
 
+import androidx.annotation.Keep;
+
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Keep
 public class User implements Serializable {
 
-    private String email;
+    private String uid;
+    private String phone;
     private String hotelname;
+
+    private long nextsellbillno;
+    private long nextpurchasebillno;
 
     @ServerTimestamp
     public Date joining_date;
-    public boolean lockmode;
 
-    public User(){}
+    public User(){ }
 
-    public User(String email, String hotelname,boolean lockmode){
-        this.email = email;
+    public User(String uid, String phone, String hotelname, long nextsellbillno, long nextpurchasebillno) {
+        this.uid = uid;
+        this.phone = phone;
         this.hotelname = hotelname;
-        this.lockmode = lockmode;
+        this.nextsellbillno = nextsellbillno;
+        this.nextpurchasebillno = nextpurchasebillno;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUid() {
+        return uid;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getPhone() {
+        return phone;
     }
 
     public String getHotelname() {
         return hotelname;
     }
 
-    public void setHotelname(String hotelname) {
-        this.hotelname = hotelname;
-    }
-
     public Date getJoining_date() {
         return joining_date;
     }
 
-    public void setJoining_date(Date joining_date) {
-        this.joining_date = joining_date;
+    public long getNextsellbillno() {
+        return nextsellbillno;
     }
 
-    public boolean isLockmode() {
-        return lockmode;
-    }
-
-    public void setLockmode(boolean lockmode) {
-        this.lockmode = lockmode;
+    public long getNextpurchasebillno() {
+        return nextpurchasebillno;
     }
 }

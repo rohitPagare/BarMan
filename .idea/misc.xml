@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/bgdfor_selectdate.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_additem.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_addpuchaseitem.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_addsell.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_addsellitem.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_addselloffer.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_allitems.xml" value="0.2296875" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_items.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_sell.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_showsell.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_verifyphone.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_viewdailybook.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/crud_item.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/crud_toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialogfragment_items.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_additem.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_allitems.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_allsells.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_createprofile.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_cruditem.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_crudsell.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_crudsellitemtrade.xml" value="0.2296875" />
+        <entry key="app/src/main/res/layout/fragment_itemtrade.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_itemtype.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_main.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_memberlogin.xml" value="0.2296875" />
+        <entry key="app/src/main/res/layout/fragment_sellstockupdate.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_stockchange.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_stockupdate.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/model_dailybook.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/model_dailysellitem.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/model_dashmenu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/model_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/model_item1.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/model_itemtrade.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/model_pbill.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/model_psitem.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/model_sbill.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/model_sell.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/model_sellitem.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/model_stock.xml" value="0.24375" />
+        <entry key="app/src/main/res/menu/menu_allitemfragment.xml" value="0.24375" />
+        <entry key="app/src/main/res/menu/menu_allsellsfragment.xml" value="0.24375" />
+        <entry key="app/src/main/res/menu/menu_crudsellfragment.xml" value="0.24375" />
+        <entry key="app/src/main/res/menu/menu_itemtradefragment.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/menu/menu_sellstockupdatefragment.xml" value="0.24375" />
+        <entry key="app/src/main/res/menu/menu_stockchangefragment.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="org.jetbrains.annotations.Nullable" />
     <option name="myDefaultNotNull" value="androidx.annotation.RecentlyNonNull" />
@@ -43,7 +100,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

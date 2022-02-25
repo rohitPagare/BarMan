@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.orhotechnologies.barman.R;
-import com.orhotechnologies.barman.Utilities;
+import com.orhotechnologies.barman.Utility;
 import com.orhotechnologies.barman.models.PurchaseBills;
 
 import org.joda.time.DateTime;
@@ -59,7 +59,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.Purcha
             tv_billnumber.setText("Bill No: "+purchasebill.getBillnumber());
             tv_tradername.setText(purchasebill.getTradername());
             DateTime dateTime = new DateTime(purchasebill.getDate());
-            String formatDate = dateTime.toString(Utilities.DATE_FORMAT);
+            String formatDate = dateTime.toString(Utility.DATE_FORMAT);
             tv_date.setText(formatDate);
             itemView.setOnClickListener(v->modelcallBack.onModelClick(purchasebill));
         }

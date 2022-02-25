@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.R.color" />
+
+        <variable
+            name="modelitemtrade"
+            type="com.orhotechnologies.barman.item.model.Itemtrade" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:padding="8dp"
+                android:text="@{modelitemtrade.tradetype.contains(`SELL`)?`SELL`:modelitemtrade.tradetype}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                android:textColor="@{modelitemtrade.tradetype.contains(`SELL ADDED`)||modelitemtrade.tradetype.contains(`REMOVED`)?@android:color/holo_red_light:@android:color/holo_green_light}"
+                tools:text="STOCK ADDED" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:padding="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:datetime="@{modelitemtrade.datetime}"
+                tools:text="12/02/2022 12:25:00" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_offer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:padding="8dp"
+                android:text="@{modelitemtrade.offer}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                tools:text="BOX" />
+
+            <TextView
+                android:id="@+id/tv_qauntity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:padding="8dp"
+                android:text="@{modelitemtrade!=null?`Quantity: `.concat(Long.toString(modelitemtrade.quantity)):`Quantity: `}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                tools:text="12" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/linearLayout2"
+            android:background="@color/smoky" />
+
+    </RelativeLayout>
+</layout>

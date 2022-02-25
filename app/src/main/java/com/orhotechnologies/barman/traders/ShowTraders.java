@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.orhotechnologies.barman.EndlessRecyclerViewScrollListener;
+import com.orhotechnologies.barman.helper.EndlessRecyclerViewScrollListener;
 import com.orhotechnologies.barman.R;
 import com.orhotechnologies.barman.models.Traders;
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_sells"
+    app:startDestination="@id/blankFragment">
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.orhotechnologies.barman.sell.fragment.BlankFragment"
+        android:label="BlankFragment"
+        tools:layout="@layout/fragment_blank">
+        <action
+            android:id="@+id/action_blankFragment_to_allSellsFragment"
+            app:destination="@id/allSellsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_sells"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_blankFragment_to_crudSellFragment"
+            app:destination="@id/crudSellFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allSellsFragment"
+        android:name="com.orhotechnologies.barman.sell.fragment.AllSellsFragment"
+        android:label="fragment_allsells"
+        tools:layout="@layout/fragment_allsells">
+        <action
+            android:id="@+id/action_allSellsFragment_to_crudSellFragment"
+            app:destination="@id/crudSellFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/crudSellFragment"
+        android:name="com.orhotechnologies.barman.sell.fragment.CrudSellFragment"
+        android:label="fragment_crudsell"
+        tools:layout="@layout/fragment_crudsell">
+        <action
+            android:id="@+id/action_crudSellFragment_to_itemAddDialogFragment"
+            app:destination="@id/itemsDialogFragment"/>
+        <action
+            android:id="@+id/action_crudSellFragment_to_sellStockUpdate"
+            app:destination="@id/sellStockUpdate" />
+    </fragment>
+    <dialog
+        android:id="@+id/itemsDialogFragment"
+        android:name="com.orhotechnologies.barman.sell.fragment.ItemsDialogFragment"
+        android:label="ItemAddDialogFragment">
+        <action
+            android:id="@+id/action_itemAddDialogFragment_to_sellStockUpdate"
+            app:destination="@id/sellStockUpdate"/>
+    </dialog>
+    <fragment
+        android:id="@+id/sellStockUpdate"
+        android:name="com.orhotechnologies.barman.sell.fragment.SellStockUpdate"
+        android:label="fragment_sellstockupdate"
+        tools:layout="@layout/fragment_sellstockupdate"/>
+
+</navigation>

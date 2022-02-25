@@ -1,6 +1,5 @@
 package com.orhotechnologies.barman.purchase;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,12 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.orhotechnologies.barman.EndlessRecyclerViewScrollListener;
+import com.orhotechnologies.barman.helper.EndlessRecyclerViewScrollListener;
 import com.orhotechnologies.barman.R;
-import com.orhotechnologies.barman.Utilities;
 import com.orhotechnologies.barman.models.PurchaseBills;
 
 import java.util.ArrayList;

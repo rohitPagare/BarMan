@@ -1,23 +1,88 @@
 <resources>
     <string name="app_name">Bar\nManager</string>
 
+    <!--Verify Activity-->
+    <string name="verify_code">Verify Code</string>
+    <string name="enter_code">Enter Code</string>
+
+    <!--Crud_item frag hints-->
     <string name="added">added</string>
     <string name="modified">modified</string>
     <string name="removed">removed</string>
+    <string name="item_name">Item Name</string>
+    <string name="select_type">Select Type</string>
+    <string name="select_subtype">Select Subtype</string>
+    <string name="bottle_of_ml">Bottle of ml</string>
+    <string name="bottle_sell_price">Bottle Sell Price</string>
+    <string name="bottles_in_box">Bottles in Box</string>
+    <string name="box_sell_price">Box Sell Price</string>
+    <string name="_30ml_sell_price">30ml Sell Price (Optional)</string>
+    <string name="_45ml_sell_price">45ml Sell Price (Optional)</string>
+    <string name="_60ml_sell_price">60ml Sell Price (Optional)</string>
+    <string name="_90ml_sell_price">90ml Sell Price (Optional)</string>
+    <string name="sell_price">Sell Price</string>
+    <string name="items_in_box">Items in Box (Optional)</string>
+    <string name="box_sell_price_opt">Box Sell Price(Optional)</string>
+    <string name="full_plate_price">Full Plate Price</string>
+    <string name="half_plate_price">Half Plate Price(Optional)</string>
+    <string name="menu_search">Search</string>
 
+    <!--CreateProfile frag hint-->
+    <string name="create_profile">Create Profile</string>
+    <string name="enter_hotel_name">Enter Hotel Name</string>
+    <string name="super_admin_name">Super Admin Name</string>
+    <string name="super_admin_phone">Super Admin Phone as UserName</string>
+    <string name="super_admin_password">Super Admin Password</string>
+
+    <!--AllSells Frag text-->
+    <string name="start_date">Start Date</string>
+
+    <!--Crud_sell_frag hint-->
+    <string name="end_date">End Date</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="itmes">Itmes</string>
+    <string name="total_price">Total Price:</string>
+    <string name="discount_price">Discount Price:</string>
+    <string name="final_price">Final Price:</string>
+
+    <!--StockUpdate Frag hint-->
+    <string name="quantity">Quantity</string>
+    <string name="select_unit">Select Unit</string>
+    <string name="available_stock">Available Stock</string>
+
+    <!--Errors-->
+    <string name="valide_price">Enter Valide Price(Only Digits)</string>
+    <string name="valide_quantity">Enter Valide Quantity(Only Digits)</string>
+
+    <!--Menus of mainfrag-->
+    <string-array name="DashMenus">
+        <item>Items</item>
+        <item>Traders</item>
+        <item>Customers</item>
+        <item>Purchase</item>
+        <item>Sell</item>
+        <item>DayBook</item>
+        <item>SignOut</item>
+    </string-array>
+
+
+    <!--Item Types Array-->
     <string-array name="itemtypes">
         <item>Liquor</item>
         <item>Food</item>
-        <item>Others</item>
+        <item>Other</item>
     </string-array>
 
+    <!--Item Subtypes Array liquor-->
     <string-array name="Liquor">
         <item>Beer</item>
         <item>Rum</item>
         <item>Vodka</item>
         <item>Wisky</item>
+        <item>Wine</item>
     </string-array>
 
+    <!--Item Subtypes Array food-->
     <string-array name="Food">
         <item>Chinese</item>
         <item>Indian</item>
@@ -25,6 +90,7 @@
         <item>Starter</item>
     </string-array>
 
+    <!--Item Subtypes Array others-->
     <string-array name="Others">
         <item>SoftDrink</item>
         <item>Water</item>
@@ -32,6 +98,28 @@
         <item>Packed Food</item>
         <item>Cigarette</item>
     </string-array>
+
+    <!--Item Bottle of ml Array -->
+    <string-array name="Bom">
+        <item>90</item>
+        <item>180</item>
+        <item>375</item>
+        <item>500</item>
+        <item>650</item>
+        <item>750</item>
+        <item>1000</item>
+        <item>2000</item>
+    </string-array>
+
+    <!--Item Box of bottle Array-->
+    <string-array name="Bob">
+        <item>6</item>
+        <item>12</item>
+        <item>18</item>
+        <item>24</item>
+        <item>48</item>
+    </string-array>
+
 
     <string-array name="Units">
         <item>Bottle (BTL)</item>
@@ -43,5 +131,17 @@
         <item>Piece (PCS)</item>
         <item>Plate (PLT)</item>
     </string-array>
+
+    <!--Common-->
+    <string name="tab">\u0009</string>
+    <string name="remove">Remove</string>
+    <string name="add">add</string>
+    <string name="stock">Stock</string>
+    <string name="available">AVAILABLE :  \u0009</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="submit">Submit</string>
+    <string name="select">Select</string>
+
 
 </resources>

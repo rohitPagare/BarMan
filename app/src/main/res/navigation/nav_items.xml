@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_items"
+    app:startDestination="@id/allItemsFragment">
+
+    <fragment
+        android:id="@+id/allItemsFragment"
+        android:name="com.orhotechnologies.barman.item.fragments.AllItemsFragment"
+        android:label="fragment_allItems"
+        tools:layout="@layout/fragment_allitems" >
+        <action
+            android:id="@+id/action_allItemsFragment_to_crudItemFragment"
+            app:destination="@id/crudItemFragment" />
+        <action
+            android:id="@+id/action_allItemsFragment_to_itemTradeFragment"
+            app:destination="@id/itemTradeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/crudItemFragment"
+        android:name="com.orhotechnologies.barman.item.fragments.CrudItemFragment"
+        android:label="fragment_addItem"
+        tools:layout="@layout/fragment_cruditem" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/itemTradeFragment"
+        android:name="com.orhotechnologies.barman.item.fragments.ItemTradeFragment"
+        android:label="fragment_itemtrade"
+        tools:layout="@layout/fragment_itemtrade" >
+        <action
+            android:id="@+id/action_itemTradeFragment_to_crudItemFragment"
+            app:destination="@id/crudItemFragment" />
+        <action
+            android:id="@+id/action_itemTradeFragment_to_stockChangeFragment"
+            app:destination="@id/stockUpdateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/stockUpdateFragment"
+        android:name="com.orhotechnologies.barman.item.fragments.StockUpdateFragment"
+        android:label="StockChangeFragment"
+        tools:layout="@layout/fragment_stockupdate"/>
+
+</navigation>

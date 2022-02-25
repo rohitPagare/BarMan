@@ -22,14 +22,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 import com.orhotechnologies.barman.R;
-import com.orhotechnologies.barman.Utilities;
+import com.orhotechnologies.barman.Utility;
 import com.orhotechnologies.barman.models.Items;
 import com.orhotechnologies.barman.models.PurchaseItems;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class AddPurchaseItem extends AppCompatActivity {
 
@@ -86,8 +85,8 @@ public class AddPurchaseItem extends AppCompatActivity {
             ac_tv_items.setText(purchaseItem.getItemname(),false);
             iet_quantity.setText(String.valueOf(purchaseItem.getQauntity()));
             iet_unit.setText(purchaseItem.getUnit().substring(purchaseItem.getUnit().indexOf("(") + 1, purchaseItem.getUnit().indexOf(")")));
-            iet_buyprice.setText(Utilities.getDoubleFormattedValue(purchaseItem.getBuyprice()));
-            iet_totalprice.setText(Utilities.getDoubleFormattedValue(purchaseItem.getTotalprice()));
+            iet_buyprice.setText(Utility.getDoubleFormattedValue(purchaseItem.getBuyprice()));
+            iet_totalprice.setText(Utility.getDoubleFormattedValue(purchaseItem.getTotalprice()));
 
             btn_add.setVisibility(View.GONE);
             btn_delete.setVisibility(View.VISIBLE);
@@ -114,7 +113,7 @@ public class AddPurchaseItem extends AppCompatActivity {
                 if(!iet_quantity.isFocused())return;
                 if(iet_buyprice.getText().toString().trim().isEmpty())return;
                 double total = Double.parseDouble(iet_buyprice.getText().toString().trim()) * Integer.parseInt(s.toString().trim());
-                iet_totalprice.setText(Utilities.getDoubleFormattedValue(total));
+                iet_totalprice.setText(Utility.getDoubleFormattedValue(total));
             }
         });
 
@@ -135,7 +134,7 @@ public class AddPurchaseItem extends AppCompatActivity {
                 if(!iet_buyprice.isFocused())return;
                 if(iet_quantity.getText().toString().trim().isEmpty())return;
                 double total = Double.parseDouble(s.toString().trim()) * Integer.parseInt(iet_quantity.getText().toString().trim());
-                iet_totalprice.setText(Utilities.getDoubleFormattedValue(total));
+                iet_totalprice.setText(Utility.getDoubleFormattedValue(total));
             }
         });
 
@@ -156,13 +155,13 @@ public class AddPurchaseItem extends AppCompatActivity {
                 if(!iet_totalprice.isFocused())return;
                 if(iet_quantity.getText().toString().trim().isEmpty())return;
                 double total = Double.parseDouble(s.toString().trim())/ Integer.parseInt(iet_quantity.getText().toString().trim());
-                iet_buyprice.setText(Utilities.getDoubleFormattedValue(total));
+                iet_buyprice.setText(Utility.getDoubleFormattedValue(total));
             }
         });
     }
 
     private void fetchAllItems() {
-        Utilities.getUserRef()
+        Utility.getUserRef()
                 .collection("items")
                .whereNotEqualTo("type","Food")
                 .get(Source.CACHE)

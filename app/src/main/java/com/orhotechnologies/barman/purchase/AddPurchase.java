@@ -25,7 +25,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.Source;
 import com.google.firebase.firestore.WriteBatch;
 import com.orhotechnologies.barman.R;
-import com.orhotechnologies.barman.Utilities;
+import com.orhotechnologies.barman.Utility;
 import com.orhotechnologies.barman.models.PurchaseItems;
 import com.orhotechnologies.barman.models.PurchaseBills;
 import com.orhotechnologies.barman.models.Traders;
@@ -95,7 +95,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
             iet_billnumber.setText(purchasebill.getBillnumber());
             ac_tv_trader.setText(purchasebill.getTradername(),false);
             list.addAll(purchasebill.getPurchaseItemsList());
-            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
+            tv_totalbuyprice.setText(Utility.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
             btn_additem.setVisibility(View.GONE);
             btn_add.setVisibility(View.GONE);
             btn_delete.setVisibility(View.VISIBLE);
@@ -126,7 +126,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
     }
 
     private void fetchAllTraders() {
-        Utilities.getUserRef()
+        Utility.getUserRef()
                 .collection("traders")
                 .get(Source.CACHE)
                 .addOnCompleteListener(this, task -> {
@@ -159,7 +159,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
             list.add(getpurchaseItem);
             adapter.notifyDataSetChanged();
             purchasebill.setBilltotal(list.stream().mapToDouble(PurchaseItems::getTotalprice).sum());
-            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
+            tv_totalbuyprice.setText(Utility.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
         }else if(requestCode == 102 && resultCode == RESULT_OK && data!=null){
             PurchaseItems getpurchaseItem = (PurchaseItems) data.getSerializableExtra("purchaseItem");
             int position = data.getIntExtra("position",-1);
@@ -176,7 +176,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
 
             adapter.notifyDataSetChanged();
             purchasebill.setBilltotal(list.stream().mapToDouble(PurchaseItems::getTotalprice).sum());
-            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
+            tv_totalbuyprice.setText(Utility.getDoubleFormattedValue(purchasebill.getBilltotal()).concat(" Rs."));
         }
     }
 
@@ -201,7 +201,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
 
         showProgressDialog("Adding","Purchase Bill " + purchasebill.getBillnumber());
 
-        DocumentReference userRef = Utilities.getUserRef();
+        DocumentReference userRef = Utility.getUserRef();
         //New bill document
         DocumentReference docPBill = userRef.collection("purchasebills").document();
         // Get a new write batch
@@ -221,7 +221,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
             btn_add.setClickable(true);
             AddPurchase.this.finish();
         }).addOnFailureListener(this, e -> {
-            Utilities.showSnakeBar(AddPurchase.this, "" + e.getMessage());
+            Utility.showSnakeBar(AddPurchase.this, "" + e.getMessage());
             progressDialog.dismiss();
             btn_add.setClickable(true);
         });
@@ -230,7 +230,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
 
     public void update(View view) {
         showProgressDialog("Saving","Purchase Bill " + purchasebill.getBillnumber());
-        DocumentReference userRef = Utilities.getUserRef();
+        DocumentReference userRef = Utility.getUserRef();
         //New bill document
         DocumentReference docPBill = userRef.collection("purchasebills").document(purchasebill.getId());
         // Get a new write batch
@@ -242,7 +242,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
             btn_add.setClickable(true);
             AddPurchase.this.finish();
         }).addOnFailureListener(this, e -> {
-            Utilities.showSnakeBar(AddPurchase.this, "" + e.getMessage());
+            Utility.showSnakeBar(AddPurchase.this, "" + e.getMessage());
             progressDialog.dismiss();
             btn_add.setClickable(true);
         });
@@ -253,7 +253,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
 
         showProgressDialog("Deleting","Purchase Bill " + purchasebill.getBillnumber());
 
-        DocumentReference userRef = Utilities.getUserRef();
+        DocumentReference userRef = Utility.getUserRef();
         // bill document
         DocumentReference docPBill = userRef.collection("purchasebills").document(purchasebill.getId());
         // Get a new write batch
@@ -273,7 +273,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
             btn_add.setClickable(true);
             AddPurchase.this.finish();
         }).addOnFailureListener(this, e -> {
-            Utilities.showSnakeBar(AddPurchase.this, "" + e.getMessage());
+            Utility.showSnakeBar(AddPurchase.this, "" + e.getMessage());
             progressDialog.dismiss();
             btn_add.setClickable(true);
         });
@@ -282,16 +282,16 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
 
     private boolean validateFields(){
         if(iet_billnumber.getText()!=null && iet_billnumber.getText().toString().trim().isEmpty()){
-            Utilities.showSnakeBar(this,"Enter Bill Number");
+            Utility.showSnakeBar(this,"Enter Bill Number");
             return true;
         }else if(purchasebill.getDate()==0){
-            Utilities.showSnakeBar(this,"Select Bill Date");
+            Utility.showSnakeBar(this,"Select Bill Date");
             return true;
         }else if(purchasebill.getTradername()==null || purchasebill.getTradername().isEmpty()){
-            Utilities.showSnakeBar(this,"Select Trader");
+            Utility.showSnakeBar(this,"Select Trader");
             return true;
         }else if(list.size()==0){
-            Utilities.showSnakeBar(this,"Add at least one item");
+            Utility.showSnakeBar(this,"Add at least one item");
             return true;
         }
         return false;

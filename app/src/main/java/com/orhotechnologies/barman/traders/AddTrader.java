@@ -7,11 +7,10 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.orhotechnologies.barman.R;
-import com.orhotechnologies.barman.Utilities;
+import com.orhotechnologies.barman.Utility;
 import com.orhotechnologies.barman.models.Traders;
 
 import static com.orhotechnologies.barman.traders.Traders_Constant.DB_TRADERS;
@@ -82,13 +81,13 @@ public class AddTrader extends AppCompatActivity {
         trader.setAddress(iet_address.getText().toString().trim());
         trader.setPhone(iet_phone.getText().toString().trim());
 
-        Utilities.getUserRef().collection(DB_TRADERS)
+        Utility.getUserRef().collection(DB_TRADERS)
                 .document()
                 .set(trader)
                 .addOnSuccessListener(this, aVoid -> AddTrader.this.finish())
                 .addOnFailureListener(this, e -> {
                     btn_add.setClickable(true);
-                    Utilities.showSnakeBar(AddTrader.this, e.getMessage());
+                    Utility.showSnakeBar(AddTrader.this, e.getMessage());
                     progressDialog.dismiss();
                 });
     }
@@ -103,7 +102,7 @@ public class AddTrader extends AppCompatActivity {
 
         showProgressDialog("Updating", "Trader " + iet_name.getText().toString().trim());
 
-        Utilities.getUserRef().collection(DB_TRADERS)
+        Utility.getUserRef().collection(DB_TRADERS)
                 .document(trader.getId())
                 .update("name",iet_name.getText().toString().trim(),
                         "address",iet_address.getText().toString().trim(),
@@ -111,7 +110,7 @@ public class AddTrader extends AppCompatActivity {
                 .addOnSuccessListener(this, aVoid -> AddTrader.this.finish())
                 .addOnFailureListener(this, e -> {
                     btn_update.setClickable(true);
-                    Utilities.showSnakeBar(AddTrader.this, e.getMessage());
+                    Utility.showSnakeBar(AddTrader.this, e.getMessage());
                     progressDialog.dismiss();
                 });
     }
@@ -121,33 +120,33 @@ public class AddTrader extends AppCompatActivity {
 
         showProgressDialog("Deleting", "Trader " + trader.getName());
 
-        Utilities.getUserRef().collection(DB_TRADERS)
+        Utility.getUserRef().collection(DB_TRADERS)
                 .document(trader.getId())
                 .delete()
                 .addOnSuccessListener(this, aVoid -> AddTrader.this.finish())
                 .addOnFailureListener(this, e -> {
                     btn_delete.setClickable(true);
-                    Utilities.showSnakeBar(AddTrader.this, e.getMessage());
+                    Utility.showSnakeBar(AddTrader.this, e.getMessage());
                     progressDialog.dismiss();
                 });
     }
 
 
     private boolean validateFields() {
-        if(Utilities.isInternetNotAvailable(this)){
-            Utilities.showSnakeBar(this,"No Internet..!");
+        if(Utility.isInternetNotAvailable(this)){
+            Utility.showSnakeBar(this,"No Internet..!");
             return true;
         }else if(iet_name.getText().toString().trim().isEmpty()){
-            Utilities.showSnakeBar(this,"Enter Trader Name");
+            Utility.showSnakeBar(this,"Enter Trader Name");
             return true;
         }else if(iet_address.getText().toString().trim().isEmpty()){
-            Utilities.showSnakeBar(this,"Enter Trader Address");
+            Utility.showSnakeBar(this,"Enter Trader Address");
             return true;
         }else if(iet_phone.getText().toString().trim().isEmpty()){
-            Utilities.showSnakeBar(this,"Enter Trader Phone");
+            Utility.showSnakeBar(this,"Enter Trader Phone");
             return true;
         }else if (iet_phone.getText().toString().length()!=13 || !iet_phone.getText().toString().startsWith("+91")) {
-            Utilities.showSnakeBar(this, "Enter Valid Phone Number(+91)");
+            Utility.showSnakeBar(this, "Enter Valid Phone Number(+91)");
             return true;
         }
         return false;

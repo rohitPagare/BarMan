@@ -22,10 +22,17 @@
 
 # Add this global rule
     -keepattributes Signature
+    -keepattributes *Annotation*
+    -keepattributes LineNumberTable,SourceFile
+    -renamesourcefileattribute SourceFile
 
 # This rule will properly ProGuard all the model classes in
     # the package com.yourcompany.models.
     # Modify this rule to fit the structure of your app.
-    -keepclassmembers class com.orhotechnologies.barman.models.** {
+    -keepclassmembers class com.orhotechnologies.barman.item.model.** {
       *;
     }
+
+
+# Keep class names of Hilt injected ViewModels since their name are used as a multibinding map key.
+-keepnames @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel

@@ -4,7 +4,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
-import com.orhotechnologies.barman.Utilities;
+import com.orhotechnologies.barman.Utility;
 
 import static com.google.firebase.firestore.Query.Direction.ASCENDING;
 import static com.orhotechnologies.barman.traders.Traders_Constant.DB_TRADERS;
@@ -15,7 +15,7 @@ public class FirestoreTradersListRepositoryCallback implements TradersListViewMo
         TradersListLiveData.OnLastVisibleTraderCallback, TradersListLiveData.OnLastTraderReachedCallback {
 
 
-    private final DocumentReference userRef = Utilities.getUserRef();
+    private final DocumentReference userRef = Utility.getUserRef();
     private final CollectionReference itemsRef = userRef.collection(DB_TRADERS);
     private Query query = itemsRef.orderBy(TRADER_NAME_PROPERTY, ASCENDING).limit(LIMIT);
     private DocumentSnapshot lastVisibleTrader;

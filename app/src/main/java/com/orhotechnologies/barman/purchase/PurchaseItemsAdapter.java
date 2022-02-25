@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.orhotechnologies.barman.R;
-import com.orhotechnologies.barman.Utilities;
+import com.orhotechnologies.barman.Utility;
 import com.orhotechnologies.barman.models.PurchaseItems;
 
 import java.util.List;
@@ -43,13 +43,13 @@ public class PurchaseItemsAdapter extends RecyclerView.Adapter<PurchaseItemsAdap
 
     static class PurchaseItemViewHolder extends RecyclerView.ViewHolder{
 
-        private final TextView tv_itemname, tv_qauntity, tv_buyprice, tv_buyxqauntity, tv_totalbuyprice;
+        private final TextView tv_itemname, tv_qauntity, tv_buyxqauntity, tv_totalbuyprice;
 
         public PurchaseItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_itemname = itemView.findViewById(R.id.tv_itemname);
             tv_qauntity = itemView.findViewById(R.id.tv_qauntity);
-            tv_buyprice = itemView.findViewById(R.id.tv_buyprice);
+            //tv_buyprice = itemView.findViewById(R.id.tv_buyprice);
             tv_buyxqauntity = itemView.findViewById(R.id.tv_buyxqauntity);
             tv_totalbuyprice = itemView.findViewById(R.id.tv_totalbuyprice);
         }
@@ -58,9 +58,9 @@ public class PurchaseItemsAdapter extends RecyclerView.Adapter<PurchaseItemsAdap
 
             tv_itemname.setText(item.getItemname());
             tv_qauntity.setText("Qauntity: " + item.getQauntity() + " " + item.getUnit());
-            tv_buyprice.setText("Buy Price: ".concat(Utilities.getDoubleFormattedValue(item.getBuyprice()) + " Rs."));
+            //tv_buyprice.setText("Buy Price: ".concat(Utility.getDoubleFormattedValue(item.getBuyprice()) + " Rs."));
             tv_buyxqauntity.setText("Total: " + item.getQauntity() + " X " + item.getBuyprice());
-            tv_totalbuyprice.setText(Utilities.getDoubleFormattedValue(item.getTotalprice()).concat(" Rs."));
+            tv_totalbuyprice.setText(Utility.getDoubleFormattedValue(item.getTotalprice()).concat(" Rs."));
             itemView.setOnClickListener(v->modelcallBack.onModelClick(item,position));
         }
     }
