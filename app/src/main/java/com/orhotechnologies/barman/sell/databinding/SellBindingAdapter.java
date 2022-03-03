@@ -30,7 +30,7 @@ public class SellBindingAdapter {
             adapter = new SellItemTradeAdapter(itemtradeList, clickListner);
             recyclerView.setAdapter(adapter);
         }
-        Log.d("TAG", "bindRecyclerViewList: "+itemtradeList.size());
+
         //if adapter is already set then check list not empty and set list
         adapter.updateList(itemtradeList);
     }

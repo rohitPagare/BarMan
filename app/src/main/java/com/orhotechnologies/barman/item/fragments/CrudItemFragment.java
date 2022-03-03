@@ -13,8 +13,10 @@ import static com.orhotechnologies.barman.item.ItemConstants.TYPE_FOOD;
 import static com.orhotechnologies.barman.item.ItemConstants.TYPE_LIQUOR;
 import static com.orhotechnologies.barman.item.ItemConstants.TYPE_OTHER;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +27,10 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
-import com.orhotechnologies.barman.helper.Connectivity;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.narify.netdetect.NetDetect;
 import com.orhotechnologies.barman.R;
 import com.orhotechnologies.barman.Utility;
 import com.orhotechnologies.barman.databinding.FragmentCruditemBinding;
@@ -39,15 +43,19 @@ import java.util.List;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 @AndroidEntryPoint
-public class CrudItemFragment extends Fragment {
+public class CrudItemFragment extends Fragment implements EasyPermissions.PermissionCallbacks {
 
     private FragmentCruditemBinding binding;
 
     private ItemViewModel viewModel;
 
     private Items item;
+
+    private static final int RC_CAMERA_PERM = 123;
 
     public CrudItemFragment() {
         // Required empty public constructor
@@ -90,8 +98,20 @@ public class CrudItemFragment extends Fragment {
     private void setUI() {
         //set click events
         binding.toolbar.back.setOnClickListener(v -> actionClose());
-        binding.toolbar.delete.setOnClickListener(v -> actionDelete());
-        binding.toolbar.submit.setOnClickListener(v -> actionSubmit());
+        binding.toolbar.delete.setOnClickListener(v -> showAlertDialog("Delete", "Do you want to delete this Item?"));
+        binding.toolbar.submit.setOnClickListener(v -> showAlertDialog(item != null && item.isEdit() ? "Update" : "Add New", item != null && item.isEdit() ? "Do you want to update this Item?" : "Do you want to add New Item?"));
+        binding.itemview.btnScan.setOnClickListener(v -> {
+            //check camera permissoin
+            if (hasCameraPermission()) {
+                Bundle bundle = new Bundle();
+                bundle.putString("action", "add");
+                NavHostFragment.findNavController(this).navigate(R.id.action_crudItemFragment_to_barcodeScannerFragment, bundle);
+            } else {
+                //ask for permission
+                EasyPermissions.requestPermissions(this, getString(R.string.rationale_camera), RC_CAMERA_PERM, Manifest.permission.CAMERA);
+            }
+        });
+
 
         //set adapter to AutoCompleteTextView
         String[] types = getResources().getStringArray(R.array.itemtypes);
@@ -115,8 +135,8 @@ public class CrudItemFragment extends Fragment {
         binding.itemview.actvBom.setOnItemClickListener((parent, view, position, id) -> binding.itemview.actvBom.setError(null));
         binding.itemview.actvBob.setOnItemClickListener((parent, view, position, id) -> binding.itemview.actvBob.setError(null));
 
-        //check is item not null
-        if (item!=null) {
+        //check is item type not null
+        if (item.getType() != null) {
             //check item type and subtype and visible Group view according
             setGroupsView(item);
             //set subtype autocompleteview values using type value
@@ -124,9 +144,9 @@ public class CrudItemFragment extends Fragment {
             subtypes[0] = getResources().getStringArray(type.equals(TYPE_LIQUOR) ? R.array.Liquor :
                     type.equals(TYPE_FOOD) ? R.array.Food : R.array.Others);
             binding.itemview.actvSubtype.setAdapter(new ArrayAdapter<>(requireActivity(), R.layout.dropdown_item, subtypes[0]));
-            binding.itemview.actvSubtype.setText(item.getSubtype(),false);
-            binding.itemview.actvBom.setText(String.valueOf(item.getBom()),false);
-            binding.itemview.actvBob.setText(String.valueOf(item.getBob()),false);
+            binding.itemview.actvSubtype.setText(item.getSubtype(), false);
+            binding.itemview.actvBom.setText(String.valueOf(item.getBom()), false);
+            binding.itemview.actvBob.setText(String.valueOf(item.getBob()), false);
         }
     }
 
@@ -147,11 +167,7 @@ public class CrudItemFragment extends Fragment {
     }
 
     private void actionSubmit() {
-        //check fast internet availble or not
-        if (!Connectivity.isConnectedFast(requireContext())) {
-            Utility.showSnakeBar(requireActivity(), "No Internet Connection, Please Try Later");
-            return;
-        }
+
         //stop submit button click event
         binding.toolbar.submit.setClickable(false);
 
@@ -162,20 +178,33 @@ public class CrudItemFragment extends Fragment {
             return;
         }
 
-        //set item
-        setItem();
+        //check fast internet availble or not
+        NetDetect.check(isConnected -> {
+            if (!isConnected) {
+                Utility.showSnakeBar(requireActivity(), "No Internet Connection, Please Try Later");
+                binding.toolbar.submit.setClickable(true);
+            } else {
 
-        //show progress dialog
-        showProgressDialog();
+                //set item
+                setItem();
 
-        viewModel.insertItem(item).observe(getViewLifecycleOwner(), s -> {
-            if (s.equals(Utility.response_success)) {
-                actionClose();
-            } else if (s.contains(Utility.response_error)) {
-                dissmissProgressDialog();
-                Utility.showSnakeBar(requireActivity(), s.split("\t")[1]);
+                //show progress dialog
+                showProgressDialog();
+
+                viewModel.insertItem(item).observe(getViewLifecycleOwner(), s -> {
+                    if (s.equals(Utility.response_success)) {
+                        actionClose();
+                    } else if (s.contains(Utility.response_error)) {
+                        dissmissProgressDialog();
+                        Utility.showSnakeBar(requireActivity(), s.split("\t")[1]);
+                    }
+                });
+
+
             }
         });
+
+
     }
 
     private String _name, _type, _subtype, _bob, _bom, _bomsp, _bobsp, _30sp, _45sp, _60sp, _90sp, _sp, _iteminbox, _itemboxsp, _fpsp, _hpsp;
@@ -201,7 +230,7 @@ public class CrudItemFragment extends Fragment {
 
 
         //check item name is empty or if item is null && contain other than letter
-        if (_name.isEmpty() || (item == null && !Utility.isLetterString(_name))) {
+        if (_name.isEmpty() || (!item.isEdit() && !Utility.isLetterString(_name))) {
             error++;
             binding.itemview.ietItemname.setError("Enter Valide name(Only letters)");
         }
@@ -238,7 +267,7 @@ public class CrudItemFragment extends Fragment {
         //check item type liquor and 30 price not empty -optional
         else if (_type.equals(TYPE_LIQUOR) && !_30sp.isEmpty()) {
             //check 30 price not digit
-            if(Utility.notDigitsString(_30sp)){
+            if (Utility.notDigitsString(_30sp)) {
                 error++;
                 binding.itemview.iet30price.setError("Enter Valide Price(Only Digits)");
             }
@@ -246,7 +275,7 @@ public class CrudItemFragment extends Fragment {
         }//check item type liuor and 45 price not empty -optional
         else if (_type.equals(TYPE_LIQUOR) && !_45sp.isEmpty()) {
             //check 45 price not digit
-            if(Utility.notDigitsString(_45sp)){
+            if (Utility.notDigitsString(_45sp)) {
                 error++;
                 binding.itemview.iet45price.setError("Enter Valide Price(Only Digits)");
             }
@@ -255,7 +284,7 @@ public class CrudItemFragment extends Fragment {
         //check item type liuor and 60 price not empty -optional
         else if (_type.equals(TYPE_LIQUOR) && !_60sp.isEmpty()) {
             //check 60 price not digit
-            if(Utility.notDigitsString(_60sp)){
+            if (Utility.notDigitsString(_60sp)) {
                 error++;
                 binding.itemview.iet60price.setError("Enter Valide Price(Only Digits)");
             }
@@ -264,7 +293,7 @@ public class CrudItemFragment extends Fragment {
         //check item type liuor and 90 price not empty -optional
         else if (_type.equals(TYPE_LIQUOR) && !_90sp.isEmpty()) {
             //check 90 price not digit
-            if(Utility.notDigitsString(_90sp)){
+            if (Utility.notDigitsString(_90sp)) {
                 error++;
                 binding.itemview.iet90price.setError("Enter Valide Price(Only Digits)");
             }
@@ -278,7 +307,7 @@ public class CrudItemFragment extends Fragment {
         //check item type food and halfplate price not empty -optional
         else if (_type.equals(TYPE_FOOD) && !_hpsp.isEmpty()) {
             //check halfplate price not digit
-            if(Utility.notDigitsString(_hpsp)){
+            if (Utility.notDigitsString(_hpsp)) {
                 error++;
                 binding.itemview.ietHplateprice.setError("Enter Valide Price(Only Digits)");
             }
@@ -291,12 +320,12 @@ public class CrudItemFragment extends Fragment {
         //check item type other and iteminbox not empty -optional
         else if (_type.equals(TYPE_OTHER) && !_iteminbox.isEmpty()) {
             //check iteminbox not digit
-            if(Utility.notDigitsString(_iteminbox)){
+            if (Utility.notDigitsString(_iteminbox)) {
                 error++;
                 binding.itemview.ietItemsinbox.setError("Enter Valide Number(Only Digits)");
             }
             // box price not empty
-            if(Utility.notDigitsString(_itemboxsp)){
+            if (Utility.notDigitsString(_itemboxsp)) {
                 error++;
                 binding.itemview.ietItemsboxsp.setError("Enter Valide Price(Only Digits)");
             }
@@ -307,9 +336,8 @@ public class CrudItemFragment extends Fragment {
     }
 
     private void setItem() {
-        if (item == null) {
-            item = new Items();
-            //if type liquor add ml to end else simple name
+        //if type liquor add ml to end else simple name
+        if(!item.isEdit()){
             item.setName(!_type.equals(TYPE_LIQUOR) ? _name.toUpperCase() : _name.toUpperCase() + " " + _bom);
         }
         //set type
@@ -360,18 +388,33 @@ public class CrudItemFragment extends Fragment {
     }
 
     private void actionDelete() {
+
         //stop delete button click event
         binding.toolbar.delete.setClickable(false);
-        showProgressDialog();
 
-        viewModel.deleteItem(item).observe(getViewLifecycleOwner(), s -> {
-            if (s.equals(Utility.response_success)) {
-                actionClose();
-            } else if (s.contains(Utility.response_error)) {
-                dissmissProgressDialog();
+        //check fast internet availble or not
+        NetDetect.check(isConnected -> {
+
+            if (!isConnected) {
+                Utility.showSnakeBar(requireActivity(), "No Internet Connection, Please Try Later");
                 binding.toolbar.delete.setClickable(true);
+            } else {
+
+                showProgressDialog();
+
+                viewModel.deleteItem(item).observe(getViewLifecycleOwner(), s -> {
+                    if (s.equals(Utility.response_success)) {
+                        actionClose();
+                    } else if (s.contains(Utility.response_error)) {
+                        dissmissProgressDialog();
+                        binding.toolbar.delete.setClickable(true);
+                    }
+                });
+
             }
+
         });
+
     }
 
     //Progress Dialog to show
@@ -389,5 +432,46 @@ public class CrudItemFragment extends Fragment {
     private void dissmissProgressDialog() {
         //check if progress dialog is showing
         if (progressDialog.isShowing()) progressDialog.dismiss();
+    }
+
+    private MaterialAlertDialogBuilder alertDialog;
+
+    private void showAlertDialog(String title, String message) {
+        if (alertDialog != null) alertDialog = null;
+        alertDialog = new MaterialAlertDialogBuilder(requireContext());
+        alertDialog.setCancelable(false);
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setPositiveButton("Yes", (dialogInterface, i) -> {
+            if (title.contains("Delete")) actionDelete();
+            else if (title.contains("Add") || title.contains("Update")) actionSubmit();
+            else actionClose();
+        });
+        alertDialog.setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d("TAG", "onRequestPermissionsResult: ");
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(requireActivity(), perms)) {
+            new AppSettingsDialog.Builder(requireActivity()).build().show();
+        }
+    }
+
+    private boolean hasCameraPermission() {
+        return EasyPermissions.hasPermissions(requireContext(), Manifest.permission.CAMERA);
     }
 }

@@ -4,10 +4,6 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <!--<variable
-            name="modelitem"
-            type="com.orhotechnologies.barman.item.model.Items" />-->
         <variable
             name="itemviewmodel"
             type="com.orhotechnologies.barman.item.viewmodel.ItemViewModel" />
@@ -23,7 +19,7 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/crud_toolbar"
-            bind:action="@{itemviewmodel.itemsLiveData!=null?`Edit Item`:`Add Item`}"/>
+            bind:action="@{itemviewmodel.itemsLiveData.isEdit?`Edit Item`:`Add Item`}"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

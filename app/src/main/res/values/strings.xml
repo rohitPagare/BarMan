@@ -1,17 +1,32 @@
 <resources>
     <string name="app_name">Bar\nManager</string>
+    <string name="app_name2">Bar Manager</string>
+    <string name="copyright">© Orho Technologies</string>
+
+    <!--Login frag hints-->
+    <string name="enter_phone">Enter Phone Number</string>
+    <string name="login">Login</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="privacy">By logging in, you aggre to our\nprivacy policy and terms of service</string>
+    <string name="verifyphone">Please type the verification code sent to\n</string>
 
     <!--Verify Activity-->
     <string name="verify_code">Verify Code</string>
     <string name="enter_code">Enter Code</string>
+    <string name="_91">+91</string>
+
+    <!--dialog_import -->
+    <string name="custom">Custom</string>
+    <string name="_import">Import</string>
 
     <!--Crud_item frag hints-->
     <string name="added">added</string>
     <string name="modified">modified</string>
     <string name="removed">removed</string>
     <string name="item_name">Item Name</string>
-    <string name="select_type">Select Type</string>
-    <string name="select_subtype">Select Subtype</string>
+    <string name="item_barcode">Barcode (Optional)</string>
+    <string name="select_type">Type</string>
+    <string name="select_subtype">Subtype</string>
     <string name="bottle_of_ml">Bottle of ml</string>
     <string name="bottle_sell_price">Bottle Sell Price</string>
     <string name="bottles_in_box">Bottles in Box</string>
@@ -27,11 +42,13 @@
     <string name="half_plate_price">Half Plate Price(Optional)</string>
     <string name="menu_search">Search</string>
 
+
     <!--CreateProfile frag hint-->
     <string name="create_profile">Create Profile</string>
-    <string name="enter_hotel_name">Enter Hotel Name</string>
+    <string name="hotel_name">Hotel Name</string>
+    <string name="hotel_address">Hotel Address</string>
     <string name="super_admin_name">Super Admin Name</string>
-    <string name="super_admin_phone">Super Admin Phone as UserName</string>
+    <string name="super_admin_phone">Super Admin UserName(Phone)</string>
     <string name="super_admin_password">Super Admin Password</string>
 
     <!--AllSells Frag text-->
@@ -50,17 +67,27 @@
     <string name="select_unit">Select Unit</string>
     <string name="available_stock">Available Stock</string>
 
+    <!--show Daybook frag hint-->
+    <string name="date">Date</string>
+    <string name="total_sell">Total Sell</string>
+    <string name="total_discount">Total Discount</string>
+    <string name="type">TYPE</string>
+    <string name="subtype">SUBTYPE</string>
+    <string name="no_data_available">No Data Available for this date</string>
+
     <!--Errors-->
     <string name="valide_price">Enter Valide Price(Only Digits)</string>
     <string name="valide_quantity">Enter Valide Quantity(Only Digits)</string>
+    <string name="valide_number">Enter Valide Number(Only Digits)</string>
 
     <!--Menus of mainfrag-->
     <string-array name="DashMenus">
         <item>Items</item>
         <item>Traders</item>
         <item>Customers</item>
-        <item>Purchase</item>
-        <item>Sell</item>
+        <item>Purchase Bills</item>
+        <item>New Sell</item>
+        <item>Sell Bills</item>
         <item>DayBook</item>
         <item>SignOut</item>
     </string-array>
@@ -142,6 +169,7 @@
     <string name="delete">Delete</string>
     <string name="submit">Submit</string>
     <string name="select">Select</string>
+    <string name="rationale_camera">App needs access to your camera so you can scan Barcode.</string>
 
 
 </resources>

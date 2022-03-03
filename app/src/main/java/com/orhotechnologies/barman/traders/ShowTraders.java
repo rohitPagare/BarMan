@@ -70,7 +70,7 @@ public class ShowTraders extends AppCompatActivity implements TradersAdapter.Mod
 
     private void setRecyclerView() {
         adapter = new TradersAdapter(this, list);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(adapter);
 
         scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) recyclerView.getLayoutManager(), LIMIT, this) {

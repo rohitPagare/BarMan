@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -153,15 +155,15 @@ public class AllItemsFragment extends Fragment implements ItemsFirestoreAdapter.
 
         //set fab click goto add item frag
         binding.fab.setOnClickListener(v -> {
-            viewModel.selectItem(null);
-            Navigation.findNavController(v).navigate(R.id.action_allItemsFragment_to_crudItemFragment);
+            //show dialog to select import or add
+            showCustomeDialog();
         });
         //swipe
         binding.swipeRefreshLayout.setOnRefreshListener(this::upateQueryOnAdapter);
 
     }
 
-    private void setRecyclerView(){
+    private void setRecyclerView() {
         //show refreshing
         binding.swipeRefreshLayout.setRefreshing(true);
 
@@ -169,7 +171,7 @@ public class AllItemsFragment extends Fragment implements ItemsFirestoreAdapter.
         config = new PagingConfig(20, 5, false);
 
         //check selectquery
-        if(selectQuery==null)setAllQuery();
+        if (selectQuery == null) setAllQuery();
 
         //PagingOption
         options = new FirestorePagingOptions.Builder<Items>()
@@ -288,8 +290,32 @@ public class AllItemsFragment extends Fragment implements ItemsFirestoreAdapter.
         return null;
     };
 
+    private void showCustomeDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        ViewGroup viewGroup = binding.getRoot().findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_import_item, viewGroup, false);
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        TextView tvimport = dialogView.findViewById(R.id.tv_import);
+        TextView tvcustom = dialogView.findViewById(R.id.tv_custom);
+
+        tvimport.setOnClickListener(v->{
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_allItemsFragment_to_importItemFragment);
+            alertDialog.dismiss();
+        } );
+        tvcustom.setOnClickListener(v->{
+            viewModel.selectItem(new Items());
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_allItemsFragment_to_crudItemFragment);
+            alertDialog.dismiss();
+        });
+
+    }
+
     @Override
     public void onItemClick(Items item) {
+        item.setEdit(true);
         viewModel.selectItem(item);
         Navigation.findNavController(binding.getRoot())
                 .navigate(R.id.action_allItemsFragment_to_itemTradeFragment);

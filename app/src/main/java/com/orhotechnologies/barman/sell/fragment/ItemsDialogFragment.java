@@ -117,6 +117,11 @@ public class ItemsDialogFragment extends DialogFragment implements ItemsFirestor
     private void setUI() {
         //onclicks
         binding.btnClose.setOnClickListener(v -> actionClose());
+        binding.btnScan.setOnClickListener(v->{
+            Bundle bundle = new Bundle();
+            bundle.putString("action","scan");
+            NavHostFragment.findNavController(this).navigate(R.id.action_itemsDialogFragment_to_barcodeScannerFragment,bundle);
+        });
 
         //search view setup
         binding.searchview.setOnClickListener(v -> binding.searchview.onActionViewExpanded());
@@ -163,7 +168,7 @@ public class ItemsDialogFragment extends DialogFragment implements ItemsFirestor
         Bundle bundle = new Bundle();
         bundle.putString(SellConstants.KEY_ACTION, SellConstants.ACTION_ADD_ITEMTRADE);
         bundle.putSerializable("model",item);
-        NavHostFragment.findNavController(this).navigate(R.id.action_itemAddDialogFragment_to_sellStockUpdate,bundle);
+        NavHostFragment.findNavController(this).navigate(R.id.action_itemDialogFragment_to_sellStockUpdate,bundle);
     }
 
 

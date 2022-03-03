@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/bgdfor_selectdate.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add.xml" value="0.1675" />
+        <entry key="app/src/main/res/drawable/ic_baseline_calendar.xml" value="0.1675" />
+        <entry key="app/src/main/res/drawable/ic_baseline_remove.xml" value="0.1675" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1675" />
+        <entry key="app/src/main/res/drawable/otp_box_active.xml" value="0.113" />
+        <entry key="app/src/main/res/drawable/otp_box_error.xml" value="0.113" />
+        <entry key="app/src/main/res/drawable/otp_box_inactive.xml" value="0.113" />
+        <entry key="app/src/main/res/font/montserrat_medium.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/activity_additem.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_addpuchaseitem.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_addsell.xml" value="0.24375" />
@@ -11,49 +20,68 @@
         <entry key="app/src/main/res/layout/activity_addselloffer.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_allitems.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_daybook.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_items.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_sell.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_showsell.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_verifyphone.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_viewdailybook.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.24375" />
-        <entry key="app/src/main/res/layout/crud_item.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_welcome1.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/crud_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/crud_toolbar.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/dialogfragment_items.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_import_item.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/dialogfragment_items.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/fragment_additem.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_alldaybook.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/fragment_allitems.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_allsells.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_barcodescanner.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.24375" />
-        <entry key="app/src/main/res/layout/fragment_createprofile.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_createprofile.xml" value="0.28222900390625" />
+        <entry key="app/src/main/res/layout/fragment_createprofile1.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/fragment_cruditem.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_crudsell.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_crudsell.xml" value="0.37704772949218757" />
         <entry key="app/src/main/res/layout/fragment_crudsellitemtrade.xml" value="0.2296875" />
+        <entry key="app/src/main/res/layout/fragment_importitem.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/fragment_itemtrade.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_itemtype.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/fragment_memberlogin.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/fragment_sellstockupdate.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_showdaybook.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_spashscreen.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/fragment_splashscreen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_stockchange.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_stockupdate.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_stockupdate.xml" value="0.25" />
         <entry key="app/src/main/res/layout/model_dailybook.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/model_dailysellitem.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/model_dashmenu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/model_daybook.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/model_importitem.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/model_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/model_item1.xml" value="0.25" />
         <entry key="app/src/main/res/layout/model_itemtrade.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/model_offerdaysell.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/model_offerprice.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/model_pbill.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/model_psitem.xml" value="0.25" />
         <entry key="app/src/main/res/layout/model_sbill.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/model_sell.xml" value="0.25" />
         <entry key="app/src/main/res/layout/model_sellitem.xml" value="0.1" />
         <entry key="app/src/main/res/layout/model_stock.xml" value="0.24375" />
+        <entry key="app/src/main/res/menu/menu_alldaybookfragment.xml" value="0.24375" />
         <entry key="app/src/main/res/menu/menu_allitemfragment.xml" value="0.24375" />
         <entry key="app/src/main/res/menu/menu_allsellsfragment.xml" value="0.24375" />
         <entry key="app/src/main/res/menu/menu_crudsellfragment.xml" value="0.24375" />
         <entry key="app/src/main/res/menu/menu_itemtradefragment.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/menu_sellstockupdatefragment.xml" value="0.24375" />
         <entry key="app/src/main/res/menu/menu_stockchangefragment.xml" value="0.25" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1675" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1675" />
+        <entry key="app/src/main/res/mipmap-xxxhdpi/ic_launcher.xml" value="0.1675" />
       </map>
     </option>
   </component>

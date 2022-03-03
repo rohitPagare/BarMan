@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
@@ -13,10 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.orhotechnologies.barman.R;
+import com.orhotechnologies.barman.databinding.FragmentBlankBinding;
+import com.orhotechnologies.barman.sell.model.Sells;
+import com.orhotechnologies.barman.sell.viewmodel.SellViewModel;
 
 public class BlankFragment extends Fragment {
 
-    private View view;
+    private FragmentBlankBinding binding;
+
+    private SellViewModel viewModel;
+
     private String action;
 
     public BlankFragment() {
@@ -30,27 +37,31 @@ public class BlankFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        binding = FragmentBlankBinding.inflate(inflater,container,false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.tvInternet.setVisibility(View.GONE);
+        binding.progressCircular.setVisibility(View.VISIBLE);
         action = getArguments()!=null?getArguments().getString("action"):null;
-        this.view = view;
+        //set viewmodel
+        viewModel = new ViewModelProvider(requireActivity()).get(SellViewModel.class);
         new Handler().postDelayed(this::actionFragment,500);
     }
 
     private void actionFragment(){
         if(action!=null){
             //start crudsell fragment
-            Navigation.findNavController(view).navigate(R.id.action_blankFragment_to_crudSellFragment);
+            viewModel.selectSell(new Sells());
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_blankFragment_to_crudSellFragment);
         }else {
             //start allsell fragment
-            Navigation.findNavController(view).navigate(R.id.action_blankFragment_to_allSellsFragment);
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_blankFragment_to_allSellsFragment);
         }
     }
 }

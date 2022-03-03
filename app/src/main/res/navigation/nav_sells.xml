@@ -17,7 +17,10 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_blankFragment_to_crudSellFragment"
-            app:destination="@id/crudSellFragment" />
+            app:destination="@id/crudSellFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_sells"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/allSellsFragment"
@@ -43,15 +46,30 @@
     <dialog
         android:id="@+id/itemsDialogFragment"
         android:name="com.orhotechnologies.barman.sell.fragment.ItemsDialogFragment"
-        android:label="ItemAddDialogFragment">
+        android:label="ItemAddDialogFragment"
+        tools:layout="@layout/dialogfragment_items">
         <action
-            android:id="@+id/action_itemAddDialogFragment_to_sellStockUpdate"
+            android:id="@+id/action_itemDialogFragment_to_sellStockUpdate"
             app:destination="@id/sellStockUpdate"/>
+        <action
+            android:id="@+id/action_itemsDialogFragment_to_barcodeScannerFragment"
+            app:destination="@id/barcodeScannerFragment" />
     </dialog>
     <fragment
         android:id="@+id/sellStockUpdate"
         android:name="com.orhotechnologies.barman.sell.fragment.SellStockUpdate"
         android:label="fragment_sellstockupdate"
         tools:layout="@layout/fragment_sellstockupdate"/>
+    <fragment
+        android:id="@+id/barcodeScannerFragment"
+        android:name="com.orhotechnologies.barman.sell.fragment.BarcodeScannerFragment"
+        android:label="fragment_barcodescanner"
+        tools:layout="@layout/fragment_barcodescanner" >
+        <action
+            android:id="@+id/action_barcodeScannerFragment_to_sellStockUpdate"
+            app:destination="@id/sellStockUpdate"
+            app:popUpTo="@id/nav_sells"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

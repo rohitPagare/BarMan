@@ -3,6 +3,7 @@
     package="com.orhotechnologies.barman">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".MyApp"
@@ -12,6 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BarMan">
+        <activity
+            android:name=".daybook.Activity_Daybook"
+            android:exported="false"
+            android:configChanges="orientation"/>
         <activity
             android:name=".sell.Activity_Sell"
             android:configChanges="orientation"
@@ -36,8 +41,9 @@
         <activity android:name=".traders.AddTrader" />
         <activity android:name=".traders.ShowTraders" />
         <activity
-            android:name=".Welcome"
+            android:name=".welcome.Welcome"
             android:configChanges="orientation"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +51,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

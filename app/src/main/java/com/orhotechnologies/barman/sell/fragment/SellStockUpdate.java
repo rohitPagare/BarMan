@@ -1,17 +1,16 @@
 package com.orhotechnologies.barman.sell.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.orhotechnologies.barman.BR;
 import com.orhotechnologies.barman.R;
@@ -27,6 +26,7 @@ import com.orhotechnologies.barman.sell.model.Sells;
 import com.orhotechnologies.barman.sell.viewmodel.SellViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -76,6 +76,8 @@ public class SellStockUpdate extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(SellViewModel.class);
         //set itemtrade info from item
         setItemTrade();
+        //set item stock
+        setItemStock();
         //bind viewmodel
         binding.setModelitem(item);
         binding.setSellviewmodel(viewModel);
@@ -85,6 +87,16 @@ public class SellStockUpdate extends Fragment {
         setToolbar();
         //set ui
         setUI();
+    }
+
+    private void setItemStock(){
+        Sells sells = viewModel.sellLiveData.getValue();
+        if(sells!=null){
+            List<Itemtrade> list = sells.getItemtradeList();
+            if(list==null || list.isEmpty())return;
+            long stockupdate = list.stream().filter(p->p.getName().equals(item.getName())).mapToLong(Itemtrade::getStockUpdate).sum();
+            item.setStock(item.getStock()+stockupdate);
+        }
     }
 
     private void setItemTrade(){

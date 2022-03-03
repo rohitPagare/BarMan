@@ -40,7 +40,6 @@
                 android:lines="1"
                 android:layout_marginTop="4dp"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:stock="@{modelitem}"
                 app:appendStart="@{``}"
                 tools:text="Bottle: 12,\t\tBox: 2,\t\tLoose: 120ml" />

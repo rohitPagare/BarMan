@@ -68,7 +68,7 @@ public class ShowPurchase extends AppCompatActivity implements PurchaseAdapter.M
 
     private void setRecyclerView() {
         adapter = new PurchaseAdapter(this, list);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(adapter);
 
         scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) recyclerView.getLayoutManager(), LIMIT, this) {

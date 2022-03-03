@@ -134,7 +134,6 @@ public class AllSellsFragment extends Fragment implements SellsFireStoreAdapter.
         //check if s is empty & not digit string
         if (!s.isEmpty() && Utility.notDigitsString(s)) return;
 
-        Log.d("TAG", "processSearch: " + s.isEmpty());
         //remove selected dates
         clearSelection();
 
@@ -168,8 +167,8 @@ public class AllSellsFragment extends Fragment implements SellsFireStoreAdapter.
         MaterialDatePicker.Builder<Long> materialDateBuilder = MaterialDatePicker.Builder.datePicker();
         materialDateBuilder.setCalendarConstraints(new CalendarConstraints.Builder().setValidator(startdateValidator).build());
         materialDateBuilder.setTitleText("SELECT START DATE");
-        // now create the instance of the material date
-        // picker
+
+        // now create the instance of the material date picker
         final MaterialDatePicker<Long> materialDatePicker = materialDateBuilder.build();
         materialDatePicker.show(requireActivity().getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {

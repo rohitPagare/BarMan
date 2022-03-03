@@ -1,5 +1,6 @@
 package com.orhotechnologies.barman.sell.fragment;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,13 +30,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 @AndroidEntryPoint
-public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.OnListItemtradeClickListner {
+public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.OnListItemtradeClickListner,EasyPermissions.PermissionCallbacks {
 
     private FragmentCrudsellBinding binding;
 
     private SellViewModel viewModel;
+
+    private static final int RC_CAMERA_PERM = 123;
 
     public CrudSellFragment() {
         // Required empty public constructor
@@ -108,8 +113,15 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
 
     private void setUI() {
         binding.btnAdd.setOnClickListener(v->{
-            viewModel.setItemtrade(new Itemtrade());
-            startAddDialog();
+            //check camera permissoin
+            if (hasCameraPermission()) {
+                viewModel.setItemtrade(new Itemtrade());
+                startAddDialog();
+            } else {
+                //ask for permission
+                EasyPermissions.requestPermissions(this, getString(R.string.rationale_camera), RC_CAMERA_PERM, Manifest.permission.CAMERA);
+            }
+
         });
         binding.toolbar.back.setOnClickListener(v -> showAlertDialog("Close","Do you want to close this Sell bill?"));
         binding.toolbar.submit.setOnClickListener(v -> showAlertDialog("Add New","Do you want to add New Sell Bill?"));
@@ -195,6 +207,31 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
         Navigation.findNavController(binding.getRoot()).navigate(R.id.action_crudSellFragment_to_sellStockUpdate,bundle);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d("TAG", "onRequestPermissionsResult: ");
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
+        if (EasyPermissions.somePermissionPermanentlyDenied(requireActivity(), perms)) {
+            new AppSettingsDialog.Builder(requireActivity()).build().show();
+        }
+    }
+
+    private boolean hasCameraPermission() {
+        return EasyPermissions.hasPermissions(requireContext(), Manifest.permission.CAMERA);
+    }
+
     private ProgressDialog progressDialog;
 
     private void showProgressDialog() {
@@ -227,5 +264,7 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
         alertDialog.setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialog.show();
     }
+
+
 
 }

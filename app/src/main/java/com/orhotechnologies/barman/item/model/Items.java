@@ -4,6 +4,7 @@ import androidx.annotation.Keep;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.google.firebase.firestore.Exclude;
 import com.orhotechnologies.barman.BR;
 
 import java.io.Serializable;
@@ -22,7 +23,14 @@ public class Items extends BaseObservable implements Serializable {
     private long stock;
     private String type;
     private String subtype;
+    private String barcode;
     private List<OfferPrices> pricesList;
+
+    @Exclude
+    private List<String> usersIds;
+
+    @Exclude
+    private boolean isEdit;
 
     public Items() {
     }
@@ -56,9 +64,24 @@ public class Items extends BaseObservable implements Serializable {
         return subtype;
     }
 
+    public String getBarcode() {
+        return barcode;
+    }
+
     public List<OfferPrices> getPricesList() {
         return pricesList;
     }
+
+    @Exclude
+    public List<String> getUsersIds() {
+        return usersIds;
+    }
+
+    @Exclude
+    public boolean isEdit() {
+        return isEdit;
+    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -89,7 +112,19 @@ public class Items extends BaseObservable implements Serializable {
         this.subtype = subtype;
     }
 
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
     public void setPricesList(List<OfferPrices> pricesList) {
         this.pricesList = pricesList;
+    }
+
+    public void setUsersIds(List<String> usersIds) {
+        this.usersIds = usersIds;
+    }
+
+    public void setEdit(boolean edit) {
+        isEdit = edit;
     }
 }

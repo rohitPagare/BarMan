@@ -22,7 +22,7 @@ public class User implements Serializable {
 
     public User(){ }
 
-    public User(String uid, String phone, String hotelname, long nextsellbillno, long nextpurchasebillno) {
+    public User(String uid, String phone, String hotelname,long nextsellbillno, long nextpurchasebillno) {
         this.uid = uid;
         this.phone = phone;
         this.hotelname = hotelname;
@@ -53,4 +53,5 @@ public class User implements Serializable {
     public long getNextpurchasebillno() {
         return nextpurchasebillno;
     }
+
 }

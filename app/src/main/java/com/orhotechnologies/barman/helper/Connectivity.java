@@ -7,7 +7,12 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
 public class Connectivity {
+
 
     /**
      * Get the network info
@@ -51,6 +56,19 @@ public class Connectivity {
     public static boolean isConnectedFast(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected() && Connectivity.isConnectionFast(info.getType(), info.getSubtype()));
+    }
+
+    /**
+     * Check if there is fast connectivity
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isConnectedFastWithStregth(Context context) {
+        NetworkInfo info = Connectivity.getNetworkInfo(context);
+        return (info != null && info.isConnected()
+                && Integer.parseInt(getConnectionStrength(context)) >= 3
+                && Connectivity.isConnectionFast(info.getType(), info.getSubtype()));
     }
 
     /**
@@ -178,7 +196,6 @@ public class Connectivity {
             return Constants.ConnectionSignalStatus.POOR_STRENGTH;
         }
     }*/
-
     public static int getInternetStatus(int type, int subType, Context context) {
         if (type == ConnectivityManager.TYPE_WIFI) {
             WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -224,7 +241,6 @@ public class Connectivity {
      * Return the availability of cellular data access in background.
      *
      * @param context Application or Activity context.
-     *
      * @return Availability of cellular data access in background.
      */
     public static boolean isBackgroundDataAccessAvailable(Context context) {

@@ -15,8 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.orhotechnologies.barman.R;
-import com.orhotechnologies.barman.Welcome;
+import com.orhotechnologies.barman.welcome.Welcome;
 import com.orhotechnologies.barman.databinding.FragmentMainBinding;
+import com.orhotechnologies.barman.daybook.Activity_Daybook;
 import com.orhotechnologies.barman.di.FireStoreModule;
 import com.orhotechnologies.barman.item.Activity_Items;
 import com.orhotechnologies.barman.sell.Activity_Sell;
@@ -46,7 +47,7 @@ public class MainFragment extends Fragment implements OnMenuClickListner {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false);
@@ -95,11 +96,13 @@ public class MainFragment extends Fragment implements OnMenuClickListner {
                         break;
                     case 3: onMenuClickListner.openPurchase();
                         break;
-                    case 4: onMenuClickListner.openSell();
+                    case 4: onMenuClickListner.openNewSell();
                         break;
-                    case 5: onMenuClickListner.openDailybook();
+                    case 5: onMenuClickListner.openSell();
                         break;
-                    case 6: onMenuClickListner.signOut();
+                    case 6: onMenuClickListner.openDailybook();
+                        break;
+                    case 7: onMenuClickListner.signOut();
                         break;
                 }
             });
@@ -142,13 +145,20 @@ public class MainFragment extends Fragment implements OnMenuClickListner {
     }
 
     @Override
+    public void openNewSell(){
+        Intent intent = new Intent(requireActivity(),Activity_Sell.class);
+        intent.putExtra("action","newSell");
+        startActivity(intent);
+    }
+
+    @Override
     public void openSell() {
         startActivity(new Intent(requireActivity(), Activity_Sell.class));
     }
 
     @Override
     public void openDailybook() {
-        //startActivity(new Intent(requireActivity(), ShowDailybook.class));
+        startActivity(new Intent(requireActivity(), Activity_Daybook.class));
     }
 
     @Override
@@ -165,6 +175,7 @@ interface OnMenuClickListner{
     void openTraders();
     void openCustomers();
     void openPurchase();
+    void openNewSell();
     void openSell();
     void openDailybook();
     void signOut();

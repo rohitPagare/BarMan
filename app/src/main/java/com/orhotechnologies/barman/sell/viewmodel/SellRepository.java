@@ -10,9 +10,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.Transaction;
 import com.orhotechnologies.barman.Utility;
-import com.orhotechnologies.barman.daybook.DayBook;
-import com.orhotechnologies.barman.daybook.OfferDaySell;
+import com.orhotechnologies.barman.daybook.model.DayBook;
+import com.orhotechnologies.barman.daybook.model.OfferDaySell;
 import com.orhotechnologies.barman.di.FireStoreModule;
+import com.orhotechnologies.barman.item.ItemConstants;
+import com.orhotechnologies.barman.item.model.Items;
 import com.orhotechnologies.barman.item.model.Itemtrade;
 import com.orhotechnologies.barman.models.User;
 import com.orhotechnologies.barman.sell.model.Sells;
@@ -20,6 +22,7 @@ import com.orhotechnologies.barman.sell.model.Sells;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,6 +35,8 @@ public class SellRepository {
     private final MutableLiveData<String> deleteresponse = new MutableLiveData<>();
 
     private final MutableLiveData<List<Itemtrade>> allItemtrades = new MutableLiveData<>();
+
+    private final MutableLiveData<Items> itemLiveData = new MutableLiveData<>();
 
     @Inject
     public SellRepository(FireStoreModule fireStoreModule) {
@@ -68,7 +73,8 @@ public class SellRepository {
                 dayBook = daybookSnap.toObject(DayBook.class);
             }else {
                 dayBook = new DayBook();
-                dayBook.setDate(today);
+                dayBook.setDate(new Date(today));
+
                 transaction.set(daybookDocRef, dayBook);
             }
 
@@ -112,12 +118,14 @@ public class SellRepository {
                 transaction.update(daybookDocRef,
                         offerdaysell + ".quantity", FieldValue.increment(model.getQuantity()),
                         offerdaysell + ".eachprice", model.getEachprice(),
-                        offerdaysell + ".totalprie", FieldValue.increment(model.getTotalprice()));
+                        offerdaysell + ".totalprice", FieldValue.increment(model.getTotalprice()));
 
                 //update item stock
                 DocumentReference itemDocRef = fireStoreModule.getUserDocRef().collection(Utility.DB_ITEMS)
                         .document(itemtrade.getName());
-                transaction.update(itemDocRef, "stock", FieldValue.increment(itemtrade.getStockUpdate()));
+                if(!itemtrade.getType().equals(ItemConstants.TYPE_FOOD)){
+                    transaction.update(itemDocRef, "stock", FieldValue.increment(itemtrade.getStockUpdate()));
+                }
             }
 
             //increment dailybook update total sell
@@ -173,12 +181,14 @@ public class SellRepository {
                 //if offerdaysellmodel exist only update quantity,eachprice,totalprice
                 transaction.update(daybookDocRef,
                         offerdaysell + ".quantity", FieldValue.increment(-1*itemtrade.getQuantity()),
-                        offerdaysell + ".totalprie", FieldValue.increment(-1*itemtrade.getTotalprice()));
+                        offerdaysell + ".totalprice", FieldValue.increment(-1*itemtrade.getTotalprice()));
 
                 //update item stock
                 DocumentReference itemDocRef = fireStoreModule.getUserDocRef().collection(Utility.DB_ITEMS)
                         .document(itemtrade.getName());
-                transaction.update(itemDocRef, "stock", FieldValue.increment(-1*itemtrade.getStockUpdate()));
+                if(!itemtrade.getType().equals(ItemConstants.TYPE_FOOD)){
+                    transaction.update(itemDocRef, "stock", FieldValue.increment(-1*itemtrade.getStockUpdate()));
+                }
 
                 //delete itemtrade from sell
                 DocumentReference itemtradeDocRef = sellDocRef.collection(Utility.DB_ITEMTRADE).document(itemtrade.getId());
@@ -231,5 +241,11 @@ public class SellRepository {
                 })*/
                 .addOnFailureListener(e -> Log.d("TAG", "getAllItemTradesOfSell: "+e.getMessage()));
         return allItemtrades;
+    }
+
+    public LiveData<Items> getItemFromBarcode(String barcode) {
+
+
+        return itemLiveData;
     }
 }

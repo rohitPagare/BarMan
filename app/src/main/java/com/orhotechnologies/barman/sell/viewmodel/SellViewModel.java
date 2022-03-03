@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.orhotechnologies.barman.item.model.Items;
 import com.orhotechnologies.barman.item.model.Itemtrade;
 import com.orhotechnologies.barman.sell.model.Sells;
 
@@ -56,6 +57,11 @@ public class SellViewModel extends ViewModel {
     /*Get Itemtrade List From Sell and update Sell*/
     public LiveData<List<Itemtrade>> updateItemtradeList(String billno){
        return sellRepository.getAllItemTradesOfSell(billno);
+    }
+
+    /*get Item*/
+    public LiveData<Items> getItemFromBarcode(String barcode){
+        return sellRepository.getItemFromBarcode(barcode);
     }
 
 }

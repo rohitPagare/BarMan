@@ -29,6 +29,7 @@ public class ItemBindingAdapter {
         } else {
             inputEditText.setText("");
         }
+
     }
 
     @BindingAdapter("datetime")
@@ -72,10 +73,10 @@ public class ItemBindingAdapter {
         long stock = item.getStock();
         long boxml = ((long) item.getBob() * item.getBom());
         do {
-            if (stock > boxml) {
+            if (stock >= boxml) {
                 box = stock / boxml;
                 stock = stock % boxml;
-            } else if (stock > item.getBom()) {
+            } else if (stock >= item.getBom()) {
                 bottle = stock / item.getBom();
                 stock = stock % item.getBom();
             } else {

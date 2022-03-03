@@ -42,7 +42,6 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|end"
                 android:padding="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:datetime="@{modelitemtrade.datetime}"
                 tools:text="12/02/2022 12:25:00" />
 
@@ -63,7 +62,6 @@
                 android:gravity="center_vertical|start"
                 android:padding="8dp"
                 android:text="@{modelitemtrade.offer}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
                 tools:text="BOX" />
 
             <TextView
@@ -73,9 +71,9 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|end"
                 android:padding="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:text="@{modelitemtrade!=null?`Quantity: `.concat(Long.toString(modelitemtrade.quantity)):`Quantity: `}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                tools:text="12" />
+                tools:text="Quantity: 12" />
 
         </LinearLayout>
 

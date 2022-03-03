@@ -121,7 +121,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
 
     private void setRecyclerView() {
         adapter = new PurchaseItemsAdapter(this,list);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(adapter);
     }
 
@@ -145,7 +145,7 @@ public class AddPurchase extends AppCompatActivity implements PurchaseItemsAdapt
         ac_tv_trader.setOnItemClickListener((parent, view, position, id) -> {
             purchasebill.setTradername(tradersList.get(position).getName());
             purchasebill.setTraderid(tradersList.get(position).getId());
-            //TODO in model purchasebill add traderid
+            // in model purchasebill add traderid
         });
 
     }

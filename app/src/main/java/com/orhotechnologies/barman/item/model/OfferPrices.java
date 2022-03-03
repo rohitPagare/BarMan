@@ -1,11 +1,12 @@
 package com.orhotechnologies.barman.item.model;
 
 import androidx.annotation.Keep;
+import androidx.databinding.BaseObservable;
 
 import java.io.Serializable;
 
 @Keep
-public class OfferPrices implements Serializable {
+public class OfferPrices extends BaseObservable implements Serializable {
 
     private String name;
     private long quantity;
@@ -29,5 +30,17 @@ public class OfferPrices implements Serializable {
 
     public double getPrice() {
         return price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

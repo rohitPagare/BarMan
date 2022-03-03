@@ -1,4 +1,4 @@
-package com.orhotechnologies.barman.daybook;
+package com.orhotechnologies.barman.daybook.model;
 
 import androidx.annotation.Keep;
 
