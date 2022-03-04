@@ -96,7 +96,7 @@ public class ItemBindingAdapter {
         long single = 0, box = 0;
         long stock = item.getStock();
         do {
-            if (stock > item.getBos()) {
+            if (item.getBos()!=0 && stock > item.getBos()) {
                 box = stock / item.getBos();
                 stock = stock % item.getBos();
             } else {

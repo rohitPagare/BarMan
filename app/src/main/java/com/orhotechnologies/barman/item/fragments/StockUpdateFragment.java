@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.narify.netdetect.NetDetect;
 import com.orhotechnologies.barman.helper.Connectivity;
 import com.orhotechnologies.barman.R;
 import com.orhotechnologies.barman.Utility;
@@ -113,7 +114,7 @@ public class StockUpdateFragment extends Fragment {
 
         //check fast internet availble or not
         if (!Connectivity.isConnectedFast(requireContext())) {
-            Utility.showSnakeBar(requireActivity(), "No Internet Connection, Please Try Later");
+            Utility.showSnakeBar(requireActivity(), "");
             return;
         }
         //stop submit button click event
@@ -136,15 +137,34 @@ public class StockUpdateFragment extends Fragment {
         //show progress dialog
         showProgressDialog();
 
-        viewModel.insertStockItemTrade(itemtrade).observe(getViewLifecycleOwner(), s -> {
-            if (s.equals(Utility.response_success)) {
-                viewModel.updateSelectedItem(item.getName());
-                actionClose();
-            } else if (s.contains(Utility.response_error)) {
-                dissmissProgressDialog();
-                Utility.showSnakeBar(requireActivity(), s.split("\t")[1]);
+        NetDetect.check(new NetDetect.ConnectivityCallback() {
+            @Override
+            public void onDetected(boolean isConnected) {
+                if(!isConnected)showError("No Internet Connection, Please Try Later");
+                else {
+                    viewModel.insertStockItemTrade(itemtrade).observe(getViewLifecycleOwner(), s -> {
+                        if (s.equals(Utility.response_success)) {
+                            viewModel.updateSelectedItem(item.getName());
+                            actionClose();
+                        } else if (s.contains(Utility.response_error)) {
+                            showError(s.split("\t")[1]);
+                        }
+                    });
+                }
             }
         });
+
+
+    }
+
+    private void showError(String error){
+        //start button
+        isSubmitClicked = false;
+        //dismiss progress
+        dissmissProgressDialog();
+        //show error
+        Utility.showSnakeBar(requireActivity(),error);
+
     }
 
     private void actionClose() {

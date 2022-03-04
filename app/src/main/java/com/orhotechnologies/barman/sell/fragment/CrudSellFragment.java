@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.narify.netdetect.NetDetect;
 import com.orhotechnologies.barman.BR;
 import com.orhotechnologies.barman.R;
 import com.orhotechnologies.barman.Utility;
@@ -34,7 +35,7 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 @AndroidEntryPoint
-public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.OnListItemtradeClickListner,EasyPermissions.PermissionCallbacks {
+public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.OnListItemtradeClickListner, EasyPermissions.PermissionCallbacks {
 
     private FragmentCrudsellBinding binding;
 
@@ -80,13 +81,13 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
      */
     private void itemtradeupdate() {
         Sells sell = viewModel.sellLiveData.getValue();
-        if (sell == null || sell.getBillno() == null){
+        if (sell == null || sell.getBillno() == null) {
             binding.frmLoad.setVisibility(View.GONE);
             return;
         }
         viewModel.updateItemtradeList(sell.getBillno()).observe(getViewLifecycleOwner(), itemtradeList -> {
             //hide load if size is grater than 0
-            if(!itemtradeList.isEmpty()){
+            if (!itemtradeList.isEmpty()) {
                 setItemtradeListToSell(itemtradeList);
                 binding.frmLoad.setVisibility(View.GONE);
                 itemtradeList.clear();
@@ -112,7 +113,7 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
     }
 
     private void setUI() {
-        binding.btnAdd.setOnClickListener(v->{
+        binding.btnAdd.setOnClickListener(v -> {
             //check camera permissoin
             if (hasCameraPermission()) {
                 viewModel.setItemtrade(new Itemtrade());
@@ -123,9 +124,9 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
             }
 
         });
-        binding.toolbar.back.setOnClickListener(v -> showAlertDialog("Close","Do you want to close this Sell bill?"));
-        binding.toolbar.submit.setOnClickListener(v -> showAlertDialog("Add New","Do you want to add New Sell Bill?"));
-        binding.toolbar.delete.setOnClickListener(v -> showAlertDialog("Delete","Do you want to delete this Sell Bill?"));
+        binding.toolbar.back.setOnClickListener(v -> showAlertDialog("Close", "Do you want to close this Sell bill?"));
+        binding.toolbar.submit.setOnClickListener(v -> showAlertDialog("Add New", "Do you want to add New Sell Bill?"));
+        binding.toolbar.delete.setOnClickListener(v -> showAlertDialog("Delete", "Do you want to delete this Sell Bill?"));
     }
 
     private void actionClose() {
@@ -142,18 +143,29 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
         else if (sell.getItemtradeList() == null || sell.getItemtradeList().isEmpty())
             Utility.showSnakeBar(requireActivity(), "Add at least one item");
         else {
+
+            //stop button clck
+            binding.toolbar.submit.setClickable(false);
             //show progress dialog
             showProgressDialog();
-            //observe insert call
-            viewModel.insertSell(sell).observe(getViewLifecycleOwner(), s -> {
-                if (s.equals(Utility.response_success)) {
-                    actionClose();
-                } else if (s.contains(Utility.response_error)) {
-                    dissmissProgressDialog();
-                    Log.d("TAG", "submit: "+s.split("\t")[1]);
-                    Utility.showSnakeBar(requireActivity(), s.split("\t")[1]);
+            //check internet
+            NetDetect.check(isConnected -> {
+                if (!isConnected) {
+                    showError("No Internet Connection, Please Try Later");
+                } else {
+                    //observe insert call
+                    viewModel.insertSell(sell).observe(getViewLifecycleOwner(), s -> {
+                        if (s.equals(Utility.response_success)) {
+                            actionClose();
+                        } else if (s.contains(Utility.response_error)) {
+                            showError(s.split("\t")[1]);
+                        }
+                    });
+
                 }
+
             });
+
         }
     }
 
@@ -169,16 +181,34 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
             binding.toolbar.delete.setClickable(false);
             //show dialog
             showProgressDialog();
-
-            viewModel.deleteSell(sell).observe(getViewLifecycleOwner(), s -> {
-                if (s.equals(Utility.response_success)) {
-                    actionClose();
-                } else if (s.contains(Utility.response_error)) {
-                    dissmissProgressDialog();
-                    binding.toolbar.delete.setClickable(true);
+            //check internet
+            NetDetect.check(isConnected -> {
+                if (!isConnected) {
+                    showError("No Internet Connection, Please Try Later");
+                } else {
+                    viewModel.deleteSell(sell).observe(getViewLifecycleOwner(), s -> {
+                        if (s.equals(Utility.response_success)) {
+                            actionClose();
+                        } else if (s.contains(Utility.response_error)) {
+                            showError(s.split("\t")[1]);
+                        }
+                    });
                 }
+
+
             });
+
+
         }
+    }
+
+    private void showError(String error) {
+        //dimiss progress
+        dissmissProgressDialog();
+        //start button
+        binding.toolbar.delete.setClickable(true);
+        //show error
+        Utility.showSnakeBar(requireActivity(), error);
     }
 
     @Override
@@ -191,20 +221,20 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
     @Override
     public void onItemtradeClick(Itemtrade itemtrade) {
         Sells sell = viewModel.sellLiveData.getValue();
-        if(sell!=null && sell.getBillno()==null){
+        if (sell != null && sell.getBillno() == null) {
             viewModel.setItemtrade(itemtrade);
             startSellStockUpdate();
         }
     }
 
-    private void startAddDialog(){
+    private void startAddDialog() {
         Navigation.findNavController(binding.getRoot()).navigate(R.id.action_crudSellFragment_to_itemAddDialogFragment);
     }
 
-    private void startSellStockUpdate(){
+    private void startSellStockUpdate() {
         Bundle bundle = new Bundle();
-        bundle.putString(SellConstants.KEY_ACTION,SellConstants.ACTION_REMOVE_ITEMTRADE);
-        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_crudSellFragment_to_sellStockUpdate,bundle);
+        bundle.putString(SellConstants.KEY_ACTION, SellConstants.ACTION_REMOVE_ITEMTRADE);
+        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_crudSellFragment_to_sellStockUpdate, bundle);
     }
 
     @Override
@@ -250,21 +280,21 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
 
     private MaterialAlertDialogBuilder alertDialog;
 
-    private void showAlertDialog(String title,String message){
-        if(alertDialog!=null) alertDialog = null;
+    private void showAlertDialog(String title, String message) {
+        if (alertDialog != null) alertDialog = null;
         alertDialog = new MaterialAlertDialogBuilder(requireContext());
         alertDialog.setCancelable(false);
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setPositiveButton("Yes", (dialogInterface, i) -> {
+            dialogInterface.dismiss();
             if (title.contains("Delete")) delete();
-           else if(title.contains("Add"))submit();
-           else actionClose();
+            else if (title.contains("Add")) submit();
+            else actionClose();
         });
         alertDialog.setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialog.show();
     }
-
 
 
 }

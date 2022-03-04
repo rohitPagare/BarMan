@@ -97,7 +97,7 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
         super.onDestroy();
     }
 
-    private void setItemNameForLiquor(){
+    private void setItemNameForLiquor() {
         if (item != null && item.getType() != null
                 && item.getType().equals(TYPE_LIQUOR) && !item.isEdit()) {
             item.setName(item.getName().substring(0, item.getName().lastIndexOf(" ")));
@@ -187,25 +187,21 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
             return;
         }
 
+        //show progress dialog
+        showProgressDialog();
+
         //check fast internet availble or not
         NetDetect.check(isConnected -> {
-            if (!isConnected) {
-                Utility.showSnakeBar(requireActivity(), "No Internet Connection, Please Try Later");
-                binding.toolbar.submit.setClickable(true);
-            } else {
-
+            if (!isConnected) showError("No Internet Connection, Please Try Later");
+            else {
                 //set item
                 setItem();
-
-                //show progress dialog
-                showProgressDialog();
 
                 viewModel.insertItem(item).observe(getViewLifecycleOwner(), s -> {
                     if (s.equals(Utility.response_success)) {
                         actionClose();
                     } else if (s.contains(Utility.response_error)) {
-                        dissmissProgressDialog();
-                        Utility.showSnakeBar(requireActivity(), s.split("\t")[1]);
+                        showError(s.split("\t")[1]);
                     }
                 });
 
@@ -214,6 +210,15 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
         });
 
 
+    }
+
+    private void showError(String error) {
+        //start button
+        binding.toolbar.submit.setClickable(true);
+        //dissmiss progress
+        dissmissProgressDialog();
+        //show error
+        Utility.showSnakeBar(requireActivity(), error);
     }
 
     private String _name, _type, _subtype, _bob, _bom, _bomsp, _bobsp, _30sp, _45sp, _60sp, _90sp, _sp, _iteminbox, _itemboxsp, _fpsp, _hpsp;
@@ -401,22 +406,21 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
         //stop delete button click event
         binding.toolbar.delete.setClickable(false);
 
+        //show progrss
+        showProgressDialog();
+
         //check fast internet availble or not
         NetDetect.check(isConnected -> {
 
             if (!isConnected) {
-                Utility.showSnakeBar(requireActivity(), "No Internet Connection, Please Try Later");
-                binding.toolbar.delete.setClickable(true);
+                showError("No Internet Connection, Please Try Later");
             } else {
-
-                showProgressDialog();
 
                 viewModel.deleteItem(item).observe(getViewLifecycleOwner(), s -> {
                     if (s.equals(Utility.response_success)) {
                         actionClose();
                     } else if (s.contains(Utility.response_error)) {
-                        dissmissProgressDialog();
-                        binding.toolbar.delete.setClickable(true);
+                        showError(s.split("\t")[1]);
                     }
                 });
 
