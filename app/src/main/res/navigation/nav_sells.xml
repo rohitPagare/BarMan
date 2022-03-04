@@ -50,10 +50,14 @@
         tools:layout="@layout/dialogfragment_items">
         <action
             android:id="@+id/action_itemDialogFragment_to_sellStockUpdate"
-            app:destination="@id/sellStockUpdate"/>
+            app:destination="@id/sellStockUpdate"
+            app:popUpTo="@id/itemsDialogFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_itemsDialogFragment_to_barcodeScannerFragment"
-            app:destination="@id/barcodeScannerFragment" />
+            app:destination="@id/barcodeScannerFragment"
+            app:popUpTo="@id/itemsDialogFragment"
+            app:popUpToInclusive="true" />
     </dialog>
     <fragment
         android:id="@+id/sellStockUpdate"
@@ -68,7 +72,7 @@
         <action
             android:id="@+id/action_barcodeScannerFragment_to_sellStockUpdate"
             app:destination="@id/sellStockUpdate"
-            app:popUpTo="@id/nav_sells"
+            app:popUpTo="@id/barcodeScannerFragment"
             app:popUpToInclusive="true" />
     </fragment>
 

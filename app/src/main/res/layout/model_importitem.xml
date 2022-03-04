@@ -42,9 +42,9 @@
                 android:id="@+id/checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@{modelimportitem.usersIds.contains(`+919700042121`)?true:false}"
+                android:checked="@{modelimportitem.usersIds.contains(userphone)?true:false}"
                 android:enabled="false"
-                android:visibility="@{modelimportitem.usersIds.contains(`+919700042121`)?View.VISIBLE:View.INVISIBLE}" />
+                android:visibility="@{modelimportitem.usersIds.contains(userphone)?View.VISIBLE:View.INVISIBLE}" />
 
 
         </LinearLayout>

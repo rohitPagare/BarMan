@@ -42,12 +42,12 @@
         <entry key="app/src/main/res/layout/fragment_createprofile.xml" value="0.28222900390625" />
         <entry key="app/src/main/res/layout/fragment_createprofile1.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/fragment_cruditem.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_crudsell.xml" value="0.37704772949218757" />
+        <entry key="app/src/main/res/layout/fragment_crudsell.xml" value="0.22111816406249996" />
         <entry key="app/src/main/res/layout/fragment_crudsellitemtrade.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/fragment_importitem.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/fragment_itemtrade.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_itemtype.xml" value="0.24375" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/fragment_memberlogin.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/fragment_sellstockupdate.xml" value="0.25" />
@@ -60,7 +60,7 @@
         <entry key="app/src/main/res/layout/model_dailysellitem.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/model_dashmenu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/model_daybook.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/model_importitem.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/model_importitem.xml" value="0.1" />
         <entry key="app/src/main/res/layout/model_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/model_item1.xml" value="0.25" />
         <entry key="app/src/main/res/layout/model_itemtrade.xml" value="0.25" />

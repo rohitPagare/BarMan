@@ -55,17 +55,28 @@ public class CreateProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.etvSaphone.setText(fireStoreModule.getFirebaseUser().getPhoneNumber());
+        binding.etvSaphone.setEnabled(false);
+
         binding.btnCreate.setOnClickListener(v->{
+            //clear all errors
+            binding.etlayHotelname.setError(null);
+            binding.etlaySaname.setError(null);
+            binding.etlaySaphone.setError(null);
+            binding.etlaySapassword.setError(null);
+
             //validate all fields
             if(Objects.requireNonNull(binding.etvHotelname.getText()).toString().trim().isEmpty()){
                 binding.etlayHotelname.setError("Enter Valide HotelName");
             }else if(Objects.requireNonNull(binding.etvSaname.getText()).toString().trim().isEmpty()){
                 binding.etlaySaname.setError("Enter Valide Name");
-            }else if(Objects.requireNonNull(binding.etvSaphone.getText()).toString().trim().isEmpty() || binding.etvSaphone.getText().toString().trim().length()!=10){
+            }else if(Objects.requireNonNull(binding.etvSaphone.getText()).toString().trim().isEmpty()){
                 binding.etlaySaphone.setError("Enter Valide Phone");
             }else if(Objects.requireNonNull(binding.etvSapassword.getText()).toString().trim().isEmpty()){
                 binding.etlaySapassword.setError("Enter Valide Password");
             }else {
+
+                //Todo Show progress check network
                 
                 User user = new User(fireStoreModule.getFirebaseAuth().getUid(),
                         fireStoreModule.getFirebaseUser().getPhoneNumber(),

@@ -95,8 +95,12 @@ public class BarcodeScannerFragment extends Fragment {
                                     itemViewModel.itemsLiveData.getValue().setBarcode(barcode);
                                 }
                                 requireActivity().onBackPressed();
-                            } else
-                                showAlertDialog("Already Exist", "Item with this barcode is already exist");
+                            } else{
+                                Items item = queryDocumentSnapshots.getDocuments().get(0).toObject(Items.class);
+                                String itemname = item!=null&&item.getName()!=null?"( "+item.getName()+" )":"";
+                                showAlertDialog("Already Exist", "Item "+itemname+" with this barcode is already exist");
+                            }
+
 
                         }).addOnFailureListener(e -> showAlertDialog("Not Found", "No Item found with scanned barcode."));
 

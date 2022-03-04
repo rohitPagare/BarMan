@@ -81,6 +81,8 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
         viewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
         //get item
         item = viewModel.itemsLiveData.getValue();
+        // if item liquor set name by removing ml
+        setItemNameForLiquor();
         //set viewmodel as lifecyleowner of fragment
         binding.setItemviewmodel(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());
@@ -93,6 +95,13 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
         //check if progress dialog is showing
         if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
         super.onDestroy();
+    }
+
+    private void setItemNameForLiquor(){
+        if (item != null && item.getType() != null
+                && item.getType().equals(TYPE_LIQUOR) && !item.isEdit()) {
+            item.setName(item.getName().substring(0, item.getName().lastIndexOf(" ")));
+        }
     }
 
     private void setUI() {
@@ -337,7 +346,7 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
 
     private void setItem() {
         //if type liquor add ml to end else simple name
-        if(!item.isEdit()){
+        if (!item.isEdit()) {
             item.setName(!_type.equals(TYPE_LIQUOR) ? _name.toUpperCase() : _name.toUpperCase() + " " + _bom);
         }
         //set type

@@ -3,7 +3,7 @@
     package="com.orhotechnologies.barman">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApp"
@@ -15,8 +15,8 @@
         android:theme="@style/Theme.BarMan">
         <activity
             android:name=".daybook.Activity_Daybook"
-            android:exported="false"
-            android:configChanges="orientation"/>
+            android:configChanges="orientation"
+            android:exported="false" />
         <activity
             android:name=".sell.Activity_Sell"
             android:configChanges="orientation"
@@ -25,11 +25,13 @@
         <activity
             android:name=".VerifyPhoneActivity"
             android:configChanges="orientation"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".dashboard.Dashboard"
             android:configChanges="orientation"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".item.Activity_Items"
             android:configChanges="orientation"
@@ -43,8 +45,8 @@
         <activity
             android:name=".welcome.Welcome"
             android:configChanges="orientation"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
