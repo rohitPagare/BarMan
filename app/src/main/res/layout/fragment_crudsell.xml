@@ -283,6 +283,13 @@
 
         </FrameLayout>
 
+        <include
+            android:id="@+id/frm_success"
+            layout="@layout/bill_success"/>
+        <include
+            android:id="@+id/frm_delete"
+            layout="@layout/delete_success"/>
+
     </RelativeLayout>
 
 

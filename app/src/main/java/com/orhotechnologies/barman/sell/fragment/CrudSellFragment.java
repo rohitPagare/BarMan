@@ -3,6 +3,7 @@ package com.orhotechnologies.barman.sell.fragment;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -133,6 +134,15 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
         requireActivity().onBackPressed();
     }
 
+    private void actionCloseSuccess(String action) {
+        //dissmiss progress
+        dissmissProgressDialog();
+        //show success anim
+        if (action.equals("Add")) binding.frmSuccess.frmAnim.setVisibility(View.VISIBLE);
+        else binding.frmDelete.frmAnim.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(this::actionClose, 1500);
+    }
+
     /**
      * To insert sells in database
      */
@@ -156,7 +166,7 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
                     //observe insert call
                     viewModel.insertSell(sell).observe(getViewLifecycleOwner(), s -> {
                         if (s.equals(Utility.response_success)) {
-                            actionClose();
+                            actionCloseSuccess("Add");
                         } else if (s.contains(Utility.response_error)) {
                             showError(s.split("\t")[1]);
                         }
@@ -188,7 +198,7 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
                 } else {
                     viewModel.deleteSell(sell).observe(getViewLifecycleOwner(), s -> {
                         if (s.equals(Utility.response_success)) {
-                            actionClose();
+                            actionCloseSuccess("Delete");
                         } else if (s.contains(Utility.response_error)) {
                             showError(s.split("\t")[1]);
                         }
@@ -220,11 +230,11 @@ public class CrudSellFragment extends Fragment implements SellItemTradeAdapter.O
 
     @Override
     public void onItemtradeClick(Itemtrade itemtrade) {
-        Sells sell = viewModel.sellLiveData.getValue();
+        /*Sells sell = viewModel.sellLiveData.getValue();
         if (sell != null && sell.getBillno() == null) {
             viewModel.setItemtrade(itemtrade);
             startSellStockUpdate();
-        }
+        }*/
     }
 
     private void startAddDialog() {

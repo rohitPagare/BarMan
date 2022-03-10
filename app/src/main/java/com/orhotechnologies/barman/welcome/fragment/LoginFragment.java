@@ -115,16 +115,15 @@ public class LoginFragment extends Fragment {
             return;
         }
 
+        //hide group login
+        binding.groupLogin.setVisibility(View.GONE);
+        //show progress
+        binding.progress.setVisibility(View.VISIBLE);
 
         //check internet
         NetDetect.check(isConnected -> {
             if(!isConnected)noNetwork();
             else {
-                //hide group login
-                binding.groupLogin.setVisibility(View.GONE);
-                //show progress
-                binding.progress.setVisibility(View.VISIBLE);
-
                 //send to verification
                 sendVerificationCode(phoneNumber);
             }
@@ -137,6 +136,10 @@ public class LoginFragment extends Fragment {
         Utility.showSnakeBar(requireActivity(),"No Internet Connection, Please Try Later");
         //start btn click
         binding.btnSingin.setClickable(true);
+        //hide progress
+        binding.progress.setVisibility(View.GONE);
+        //show group login
+        binding.groupLogin.setVisibility(View.VISIBLE);
     }
 
     private String phoneNumber;

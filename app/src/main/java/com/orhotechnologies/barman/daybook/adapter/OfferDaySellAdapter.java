@@ -12,6 +12,7 @@ import com.orhotechnologies.barman.R;
 import com.orhotechnologies.barman.databinding.ModelOfferdaysellBinding;
 import com.orhotechnologies.barman.daybook.model.OfferDaySell;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,7 @@ public class OfferDaySellAdapter extends RecyclerView.Adapter<OfferDaySellAdapte
     public void updateList(List<OfferDaySell> list){
         this.list.clear();
         this.list.addAll(list.stream().filter(p->p.getQuantity()>0).collect(Collectors.toList()));
+        this.list.sort(Comparator.comparing(OfferDaySell::getName));
         notifyDataSetChanged();
     }
 

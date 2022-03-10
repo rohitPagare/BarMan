@@ -32,8 +32,8 @@
             <include
                 android:id="@+id/itemview"
                 layout="@layout/crud_item"
-                bind:itemviewmodel="@{itemviewmodel}"
-                bind:itemconstant="@{itemconstant}"/>
+                bind:itemconstant="@{itemconstant}"
+                bind:itemviewmodel="@{itemviewmodel}" />
 
 
         </androidx.core.widget.NestedScrollView>

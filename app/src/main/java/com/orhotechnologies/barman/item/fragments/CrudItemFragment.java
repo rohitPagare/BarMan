@@ -97,7 +97,7 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
         super.onDestroy();
     }
 
-    private void setItemNameForLiquor() {
+    private void setItemNameForLiquor(){
         if (item != null && item.getType() != null
                 && item.getType().equals(TYPE_LIQUOR) && !item.isEdit()) {
             item.setName(item.getName().substring(0, item.getName().lastIndexOf(" ")));
@@ -244,7 +244,7 @@ public class CrudItemFragment extends Fragment implements EasyPermissions.Permis
 
 
         //check item name is empty or if item is null && contain other than letter
-        if (_name.isEmpty() || (!item.isEdit() && !Utility.isLetterString(_name))) {
+        if (_name.isEmpty() /*|| (!item.isEdit() && !Utility.isLetterString(_name))*/) {
             error++;
             binding.itemview.ietItemname.setError("Enter Valide name(Only letters)");
         }

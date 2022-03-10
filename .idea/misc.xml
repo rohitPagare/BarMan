@@ -28,8 +28,10 @@
         <entry key="app/src/main/res/layout/activity_viewdailybook.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_welcome1.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/bill_success.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/crud_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/crud_toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/delete_success.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/dialog_import_item.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/dialogfragment_items.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.24375" />
@@ -45,9 +47,9 @@
         <entry key="app/src/main/res/layout/fragment_crudsell.xml" value="0.22111816406249996" />
         <entry key="app/src/main/res/layout/fragment_crudsellitemtrade.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/fragment_importitem.xml" value="0.24583333333333332" />
-        <entry key="app/src/main/res/layout/fragment_itemtrade.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_itemtrade.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_itemtype.xml" value="0.24375" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.46964874267578144" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/fragment_memberlogin.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/fragment_sellstockupdate.xml" value="0.25" />

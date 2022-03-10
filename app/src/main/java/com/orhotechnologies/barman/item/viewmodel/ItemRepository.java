@@ -68,6 +68,19 @@ public class ItemRepository {
         return insertresponse;
     }
 
+
+    public LiveData<String> insertItemToGlobe(Items item){
+        //then insert item
+        fireStoreModule.getFirebaseFirestore()
+                .collection(Utility.DB_ITEMS)
+                .document(item.getName())
+                .set(item,SetOptions.merge())
+                .addOnSuccessListener(unused -> insertresponse.setValue(Utility.response_success))
+                .addOnFailureListener(e -> insertresponse.postValue(Utility.response_error + "\t" + e));
+
+        return insertresponse;
+    }
+
     private List<String> getItemMergeFields() {
         List<String> list = new ArrayList<>();
         list.add("name");
